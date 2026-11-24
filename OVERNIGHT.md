@@ -32,6 +32,11 @@ No `.env` here, so the app never reaches the live Supabase project; nothing touc
   PayPage, FriendScan). Fixing them the obvious way (adding `load` as a dependency) would fetch
   again on every render. They need the screens running to test, so they wait on the mock (Waiting list).
 
+### Branch `design/sign-in` (from `origin/main`)
+
+- 32d9cc5: the sign-in card had two identical navy tab bars stacked (Email/OTP, then Login/Register). Login/Register is now a quiet white pill, so the order reads method → mode → one navy Log in button. Checked on the iPhone (light) and desktop (dark); Register still switches the form.
+- How to view screens without keys: the `payment-tracker-overnight` launch config runs Vite with dummy `VITE_SUPABASE_URL=http://127.0.0.1:54321` set inline (no .env), so nothing can reach live Supabase. Phone: `http://192.168.29.209:5180/`; the first load takes a few seconds while Vite compiles.
+
 ## Waiting list
 
 - **Seeing the app run** (waits on: a way in without live data). Every screen is behind a Supabase

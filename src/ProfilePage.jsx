@@ -247,9 +247,9 @@ export default function ProfilePage({ session, profiles }) {
 
         <form onSubmit={savePassword}>
           <label>New password</label>
-          <input type="password" value={newPw} onChange={(e) => setNewPw(e.target.value)} />
+          <input type="password" autoComplete="new-password" value={newPw} onChange={(e) => setNewPw(e.target.value)} />
           <label>Confirm new password</label>
-          <input type="password" value={newPw2} onChange={(e) => setNewPw2(e.target.value)} />
+          <input type="password" autoComplete="new-password" value={newPw2} onChange={(e) => setNewPw2(e.target.value)} />
           <button className="primary" type="submit" style={{ marginTop: 16 }}>Change password</button>
         </form>
         {note("pw")}

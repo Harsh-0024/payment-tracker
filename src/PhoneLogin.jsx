@@ -81,9 +81,9 @@ export default function PhoneLogin() {
       {step === "enter" ? (
         <form onSubmit={sendCode}>
           <label>Your name (only for a new account)</label>
-          <input value={name} onChange={(e) => setName(e.target.value)} placeholder="Ravi Sharma" />
+          <input autoComplete="name" value={name} onChange={(e) => setName(e.target.value)} placeholder="Ravi Sharma" />
           <label>Mobile number</label>
-          <input inputMode="tel" value={phone} onChange={(e) => setPhone(e.target.value)}
+          <input inputMode="tel" autoComplete="tel-national" value={phone} onChange={(e) => setPhone(e.target.value)}
             placeholder="9876543210" required />
           {msg && <p className="error">{msg}</p>}
           <button className="primary" type="submit" disabled={busy}>

@@ -114,9 +114,9 @@ export default function RecoveryGate({ children }) {
         {!done && (
           <>
             <label>New password</label>
-            <input type="password" value={pw} onChange={(e) => setPw(e.target.value)} />
+            <input type="password" autoComplete="new-password" value={pw} onChange={(e) => setPw(e.target.value)} />
             <label>Confirm new password</label>
-            <input type="password" value={pw2} onChange={(e) => setPw2(e.target.value)} />
+            <input type="password" autoComplete="new-password" value={pw2} onChange={(e) => setPw2(e.target.value)} />
             <div style={{ marginTop: 16 }}>
               <button className="small" type="button" disabled={busy} onClick={save}>
                 Update password

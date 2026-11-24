@@ -41,6 +41,10 @@ No `.env` here, so the app never reaches the live Supabase project; nothing touc
 
 - Autofill hints on every sign-in and password field (email, current-password, new-password, name, tel-national). On the iPhone the Passwords bar now appears on the email field, and Register/reset can suggest a strong password. Build passes; the 7 lint problems in those files are older and not on the changed lines.
 
+### Branch `improve/bundle-split` (from `origin/main`)
+
+- The heavy screens load on first use (React.lazy): pay/scan page (html5-qrcode), friend scan (jsqr), profile, and the spending pie chart (recharts, moved to SpendingChart.jsx); reminder.js imports qrcode only when sharing a UPI QR. Main JS: 1,448 kB (429 kB gzip) → 555 kB (155 kB gzip). Lint count unchanged (28, as on main). Each split module loads in the dev server; the welcome screen renders on the iPhone. Screens behind sign-in were not tapped through (need a Supabase mock: Waiting list).
+
 ## Waiting list
 
 - **Seeing the app run** (waits on: a way in without live data). Every screen is behind a Supabase

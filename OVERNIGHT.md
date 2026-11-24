@@ -24,6 +24,13 @@ No `.env` here, so the app never reaches the live Supabase project; nothing touc
   app): setState called straight in effects (App, GlobalSearch, GroupsPage, PayPage), missing
   effect dependencies, and DesktopHome/ThemeToggle exporting helpers next to components (only
   affects hot reload while developing).
+- **Lint: 16 down to 11. Each component file now exports only components, so hot reload works.**
+  The money, cover and avatar helpers (`R`, `kindFor`, `hue`, `ini`) moved from DesktopHome.jsx to
+  `src/people.js`. The theme logic (`setTheme`, `useTheme` and the saved-theme start-up) moved from
+  ThemeToggle.jsx to `src/theme.js`, which main.jsx now imports. Same code, only moved; build passes.
+- The 11 left are all "load data when the page opens" effects (App, GlobalSearch, GroupsPage,
+  PayPage, FriendScan). Fixing them the obvious way (adding `load` as a dependency) would fetch
+  again on every render. They need the screens running to test, so they wait on the mock (Waiting list).
 
 ## Waiting list
 

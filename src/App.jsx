@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { QRCodeSVG } from "qrcode.react";
 import { PieChart, Pie, Cell, Tooltip, Legend, ResponsiveContainer } from "recharts";
 import { supabase } from "./supabaseClient";
-import { setTheme, useTheme } from "./ThemeToggle";
+import { setTheme, useTheme } from "./theme";
 import AuthChoice, { Splash } from "./AuthChoice";
 import PaymentsHub from "./PaymentsHub";
 import SplitHub from "./SplitHub";

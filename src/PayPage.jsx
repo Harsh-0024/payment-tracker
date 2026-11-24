@@ -4,7 +4,7 @@ import { Html5Qrcode } from "html5-qrcode";
 import { supabase } from "./supabaseClient";
 
 const rupee = (n) => "₹" + Number(n).toLocaleString("en-IN");
-const UPI_RE = /^[\w.\-]{2,}@[A-Za-z]{2,}$/;
+const UPI_RE = /^[\w.-]{2,}@[A-Za-z]{2,}$/;
 const isMobile = () => /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 const fmtDate = (s) =>
   new Date(s).toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" });

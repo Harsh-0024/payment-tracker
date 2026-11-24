@@ -37,7 +37,7 @@ export async function syncUpi() {
     put("upiName", data.upi_name);
     put("qrMode", data.qr_mode);
     put("qrPath", data.qr_path);
-  } catch (e) {
+  } catch {
     // ignore
   }
 }

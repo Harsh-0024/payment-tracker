@@ -889,7 +889,8 @@ function PaidSummary({ entries }) {
   const theirs = Object.entries(theyPaid).sort((a, b) => b[1].total - a[1].total);
   const sum = (list) => list.reduce((s, [, v]) => s + v.total, 0);
 
-  function List({ list, cls }) {
+  // A plain function, not a component made during render (that remounted both lists every render).
+  function renderList(list, cls) {
     if (list.length === 0) return <p className="sub" style={{ display: "block" }}>No payments yet.</p>;
     return list.map(([name, v]) => (
       <div className="entry" key={name}>
@@ -911,14 +912,14 @@ function PaidSummary({ entries }) {
         <p className="sub" style={{ marginBottom: 8, display: "block" }}>
           {mine.length} friend{mine.length === 1 ? "" : "s"} · total {rupee(sum(mine))}
         </p>
-        <List list={mine} cls="pos" />
+        {renderList(mine, "pos")}
       </div>
       <div className="card">
         <h3>Paid for you</h3>
         <p className="sub" style={{ marginBottom: 8, display: "block" }}>
           {theirs.length} friend{theirs.length === 1 ? "" : "s"} · total {rupee(sum(theirs))}
         </p>
-        <List list={theirs} cls="neg" />
+        {renderList(theirs, "neg")}
       </div>
     </div>
   );

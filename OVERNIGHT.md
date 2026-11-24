@@ -14,7 +14,16 @@ No `.env` here, so the app never reaches the live Supabase project; nothing touc
 
 ### Branch `improve/lint-cleanup` (from `main`)
 
-- (in progress) Clearing the lint errors without changing behaviour.
+- **Lint: 28 problems down to 16, behaviour unchanged.** Unused catch variables dropped (`catch {}`),
+  the needless `\-` in the two UPI-ID patterns removed, ProfilePage's unused copy of `resizeImage`
+  deleted (it already imports the one in imageTools.js), and imageTools' "Could not read" error now
+  carries the original error as its `cause`. The "Who paid for whom" lists were a component made
+  inside render, so React remounted both on every render; it is now a plain function call with the
+  same output. `npm run build` passes.
+- Left for a separate, careful pass (they change when things run, so each needs testing in the
+  app): setState called straight in effects (App, GlobalSearch, GroupsPage, PayPage), missing
+  effect dependencies, and DesktopHome/ThemeToggle exporting helpers next to components (only
+  affects hot reload while developing).
 
 ## Waiting list
 

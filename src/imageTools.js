@@ -2,7 +2,7 @@ async function decode(file) {
   if (window.createImageBitmap) {
     try {
       return await createImageBitmap(file);
-    } catch (e) {
+    } catch {
       // fall back to the <img> method below
     }
   }
@@ -32,7 +32,8 @@ export async function resizeImage(file, max, type, quality) {
     img = await decode(file);
   } catch (e) {
     throw new Error(
-      `Could not read ${file.name || "this file"} (${file.type || "unknown type"}). Try a JPG or PNG image.`
+      `Could not read ${file.name || "this file"} (${file.type || "unknown type"}). Try a JPG or PNG image.`,
+      { cause: e }
     );
   }
 

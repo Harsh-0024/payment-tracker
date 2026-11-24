@@ -158,7 +158,7 @@ export const ini = (s) => String(s || "?").trim().charAt(0).toUpperCase();
 
 export default function DesktopHome({ entries, friends, name, go }) {
   const ms = lastMonths(6);
-  const all = (e) => true;
+  const all = () => true;
   const open = entries.filter((e) => e.status !== "Settled");
   const owe = open.filter((e) => e.paid_by === "friend");
   const owed = open.filter((e) => e.paid_by === "me");

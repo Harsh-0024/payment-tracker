@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useState, lazy, Suspense } from "react";
 import PaymentsPage from "./PaymentsPage";
-import PayPage from "./PayPage";
 import ChatBot from "./ChatBot";
 import GlobalSearch from "./GlobalSearch";
+
+// The pay/scan tab pulls in the camera QR reader: load it on first open.
+const PayPage = lazy(() => import("./PayPage"));
 
 export default function PaymentsHub(props) {
   const [tab, setTab] = useState("payments");
@@ -18,7 +20,7 @@ export default function PaymentsHub(props) {
           onClick={() => setTab("pay")}>Pay now</button>
       </div>
 
-      {tab === "payments" ? <PaymentsPage {...props} /> : <PayPage {...props} />}
+      {tab === "payments" ? <PaymentsPage {...props} /> : <Suspense fallback={null}><PayPage {...props} /></Suspense>}
 
       <ChatBot entries={props.entries} friends={props.friends} />
     </>

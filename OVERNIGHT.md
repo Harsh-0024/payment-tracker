@@ -101,6 +101,9 @@ No `.env` here, so the app never reaches the live Supabase project; nothing touc
   there. The button and its open panel now sit above the bottom bar.
 - Amount and Payment date had a bigger gap between them than any other pair of fields; now even.
 - Checked on the iPhone, with the chat open and closed. Lint clean; build has no mock in it.
+- Profile: the Dark mode row had a go-to-page arrow and, once on, said "Light mode" beside a moon.
+  It now always says "Dark mode" and ends in an on/off switch. The Settings icon looked like a sun;
+  it is now a gear. Checked on the iPhone in light and dark.
 
 ## Waiting list
 

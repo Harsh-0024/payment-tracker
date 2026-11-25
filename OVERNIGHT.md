@@ -75,6 +75,11 @@ No `.env` here, so the app never reaches the live Supabase project; nothing touc
 - Signing in on a phone opened Home part-scrolled (the login page's scroll, after the keyboard pushed it up), hiding the greeting; switching tabs kept the old scroll too. The page now resets to the top whenever it changes, including the first page after sign-in. Checked on the simulator.
 - Add a payment on phones: Amount and Payment date sit in a two-column row that stacks on narrow screens, but kept its 16px gap on top of each label's 20px margin, so that one gap was nearly double the rest. Stacked rows now have no row gap. CSS only; build passes.
 
+## improve/dev-mock: stays signed in across reloads
+
+- The mock remembers "signed in" for the tab (sessionStorage), so a dev-server reload or a branch switch no longer drops you to the welcome screen. The demo data still starts fresh on each load; Log Out forgets it.
+- Checked on the iPhone: sign in, reload: still on Home; Log Out: back to the welcome screen. Build has no mock in it.
+
 ## Waiting list
 
 - **Seeing the app run**: now possible with `npm run dev:mock` (branch `improve/dev-mock`); the

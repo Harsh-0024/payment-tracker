@@ -72,6 +72,7 @@ No `.env` here, so the app never reaches the live Supabase project; nothing touc
 - Activity: the payment date field ran past the card's right edge (iOS Safari gives date inputs a fixed width). Date fields on phones now fill their box, with the date left-aligned and centred like the other fields.
 - The chat bubble sat on top of the Profile tab. On phones it now floats just above the tab bar.
 - eslint clean on the changed file; build passes; mock not in dist.
+- Signing in on a phone opened Home part-scrolled (the login page's scroll, after the keyboard pushed it up), hiding the greeting; switching tabs kept the old scroll too. The page now resets to the top whenever it changes, including the first page after sign-in. Checked on the simulator.
 
 ## Waiting list
 

@@ -1,7 +1,8 @@
 /* Phone screens that match the mockup: My Groups, Group detail, Expense Details, Profile. */
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { supabase } from "./supabaseClient";
 import { Cover, kindFor, hue, ini, R } from "./DesktopHome";
+import GroupsPage from "./GroupsPage";
 
 const IC = {
   back: <path d="M15 5l-7 7 7 7" />,
@@ -41,8 +42,10 @@ function Avs({ names, s = 40 }) {
 const dt = (x) => new Date(x).toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" });
 const sumA = (l) => l.reduce((s, e) => s + Number(e.amount), 0);
 
-export function MobileGroups({ friends, entries, go, manage, reload, setError }) {
+export function MobileGroups({ friends, entries, go, manage, reload, setError, myName }) {
   const [view, setView] = useState({ t: "list" });
+  // Trip groups (friend_groups) sit at the top of this tab; friends follow below.
+  const [trips, setTrips] = useState({ groups: [], members: [], items: [] });
   const [q, setQ] = useState("");
   const [pill, setPill] = useState("All");
   const [tab, setTab] = useState("Expenses");
@@ -56,6 +59,47 @@ export function MobileGroups({ friends, entries, go, manage, reload, setError })
   };
   const netText = (net) => (net > 0 ? `You're owed ${R(net)}` : net < 0 ? `You owe ${R(-net)}` : "All settled up");
   const netCls = (net) => (net > 0 ? "get" : net < 0 ? "owe" : "ok");
+
+  const onList = view.t === "list";
+  useEffect(() => {
+    if (!onList) return;
+    let live = true;
+    Promise.all([
+      supabase.from("friend_groups").select("*").order("created_at", { ascending: false }),
+      supabase.from("friend_group_members").select("group_id, name"),
+      supabase.from("friend_group_expenses").select("group_id, amount"),
+    ]).then(([g, m, x]) => {
+      if (!live) return;
+      const err = g.error || m.error || x.error;
+      if (err) { setError(err.message); return; }
+      setTrips({ groups: g.data || [], members: m.data || [], items: x.data || [] });
+    });
+    return () => { live = false; };
+  }, [onList, setError]);
+
+  /* ---- One trip group, or the full trip-groups page (create form + lists) ---- */
+  if (view.t === "trip" || view.t === "trips") {
+    const back = () => setView({ t: "list" });
+    return (
+      <div className="ms ms-trip">
+        {view.t === "trips" && (
+          <div className="ms-bar">
+            <button type="button" className="ms-ib" onClick={back} aria-label="Back"><Ic n="back" /></button>
+            <h2>Trip groups</h2>
+            <span className="ms-ib ghost" />
+          </div>
+        )}
+        <GroupsPage
+          friends={friends}
+          setError={setError}
+          myName={myName}
+          startOpen={view.t === "trip" ? view.id : null}
+          onClose={back}
+          goFriends={() => setView({ t: "manage" })}
+        />
+      </div>
+    );
+  }
 
   /* ---- Add friends (the old forms: invite code, QR, add by ID) ---- */
   if (view.t === "manage") {
@@ -193,6 +237,15 @@ export function MobileGroups({ friends, entries, go, manage, reload, setError })
   }
 
   /* ---- My Groups list ---- */
+  const needle = q.trim().toLowerCase();
+  const tripRows = trips.groups
+    .map((g) => {
+      const names = trips.members.filter((m) => m.group_id === g.id).map((m) => m.name);
+      const items = trips.items.filter((x) => x.group_id === g.id);
+      return { g, names, count: items.length, total: sumA(items) };
+    })
+    .filter((r) => r.g.name.toLowerCase().includes(needle) || r.names.some((n) => n.toLowerCase().includes(needle)))
+    .filter((r) => (pill === "All" ? true : pill === "Active" ? r.count > 0 : r.count === 0));
   const shown = friends
     .filter((f) => f.name.toLowerCase().includes(q.trim().toLowerCase()))
     .filter((f) => {
@@ -216,6 +269,28 @@ export function MobileGroups({ friends, entries, go, manage, reload, setError })
         ))}
       </div>
 
+      <div className="ms-sec">
+        <h2>Trip groups</h2>
+        <button type="button" className="ms-link" onClick={() => setView({ t: "trips" })}>+ New group</button>
+      </div>
+      {trips.groups.length === 0 && (
+        <p className="ms-sec-note">Split a trip or a flat with several people at once.</p>
+      )}
+      {trips.groups.length > 0 && tripRows.length === 0 && <p className="ms-sec-note">No trip groups match.</p>}
+      {tripRows.map(({ g, names, count, total }) => (
+        <button type="button" className="ms-g" key={g.id} onClick={() => setView({ t: "trip", id: g.id })}>
+          <Avs names={["You", ...names].slice(0, 3)} s={34} />
+          <span className="ms-g-mid">
+            <b>{g.name}</b>
+            <small>{names.length + 1} people • {count} item{count === 1 ? "" : "s"}{count ? ` • ${R(total)}` : ""}</small>
+          </span>
+          <Ic n="chev" s={20} />
+        </button>
+      ))}
+
+      <div className="ms-sec">
+        <h2>Friends</h2>
+      </div>
       {friends.length === 0 && (
         <div className="ms-empty-card">
           <p>No friends yet. Tap + to add someone with an invite code, QR or by name.</p>

@@ -80,15 +80,20 @@ No `.env` here, so the app never reaches the live Supabase project; nothing touc
 - The mock remembers "signed in" for the tab (sessionStorage), so a dev-server reload or a branch switch no longer drops you to the welcome screen. The demo data still starts fresh on each load; Log Out forgets it.
 - Checked on the iPhone: sign in, reload: still on Home; Log Out: back to the welcome screen. Build has no mock in it.
 
+## Groups tab shows trip groups (feature/groups-tab)
+
+- Decided (you gave me the call): option (b). The phone's Groups tab now starts with a **Trip groups**
+  section (members, item count, total), with "+ New group", then a **Friends** section with the
+  old rows. Search and the All / Active / Archived pills cover both. Tapping a group opens it in
+  place; Back returns to the tab. The tab's name is now accurate, and groups stay under "+" too.
+- Settle-up lines read "Aarav pays you" / "You pay Meera" (were "pays You" / "You pays").
+- Mock (improve/dev-mock): the Goa trip expense used "me" where the app uses "__me__", so the
+  group showed "Settled up" beside "Aarav pays me". Fixed; it now shows "You are owed ₹6,000".
+- Checked on the iPhone: list, opening Goa trip, Back, + New group. Build has no mock in it.
+
 ## Waiting list
 
 - **Seeing the app run**: now possible with `npm run dev:mock` (branch `improve/dev-mock`); the
   rest of this item is kept for the record. Was waiting on a way in without live data. Every screen is behind a Supabase
   sign-in; without the project's URL and key the app can only show its sign-in page. A local mock
   (as Liftbook has) would let screens be checked without touching real accounts.
-- **Where groups live on the phone (your call)**: the bottom tab called "Groups" (`MobileGroups`)
-  lists one card per *friend* (Aarav, Kabir, Meera). Real groups such as "Goa trip"
-  (`friend_groups`, `GroupsPage`) only appear behind the "+" button, under its Groups / Quick split
-  switch. Someone looking for a trip group would open the Groups tab and not find it. Options:
-  (a) rename the tab "Friends" and leave groups under "+"; (b) show real groups at the top of the
-  Groups tab, friends below; (c) leave as is. Not changed, since it's a design decision.

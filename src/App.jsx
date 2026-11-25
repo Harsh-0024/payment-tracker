@@ -396,6 +396,12 @@ function Shell({ session }) {
     return () => window.removeEventListener("focus", onFocus);
   }, [session.access_token]);
 
+  // A new page starts at its top; without this the phone kept the last page's scroll position,
+  // so "+" or Profile could open halfway down.
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [page]);
+
   const requests = connections.filter((c) => c.status === "pending" && c.addressee === myId).length;
   const owes = entries.filter((e) => e.status !== "Settled" && e.paid_by === "friend").slice(0, 3);
   const meta = [null, ...(TITLES[page] || TITLES.Dashboard)];

@@ -187,3 +187,4 @@ No `.env` here, so the app never reaches the live Supabase project; nothing touc
 - The round chat button sat on top of the Profile tab. On screens up to 900px it now sits above the bottom bar.
 - Checked on the iPhone 18 Pro simulator; ChatBot.jsx lint same as main (0), build ok, no mock values in dist.
 - Activity search placeholder cut off at "…UPI ID, st" on a phone: now "Search friend, amount, note or date" (shows whole); UPI ID and status still match, and the field's aria-label lists them. GlobalSearch.jsx lint same as main (1).
+- improve/friendly-dates (fd43903): the desktop lists (Payments, Activity, Dashboard, Pay, group expenses) now say "Yesterday", "22 Nov" like the phone ones, in place of "24/11/2026"; due dates read "Due yesterday" / "Due 1 Dec". Checked in the browser at desktop width; lint counts unchanged per file; build clean, no mock values in dist.

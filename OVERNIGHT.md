@@ -109,6 +109,13 @@ No `.env` here, so the app never reaches the live Supabase project; nothing touc
 - Switching pages kept the last page's scroll position, so "+" opened halfway down its form and
   Profile with the avatar scrolled away. Each page now opens at its top. Checked on the iPhone.
 
+## Settle up order (improve/settle-up)
+
+- Home's Settle Up opens the Pay page, which led with "Pay a merchant (scan QR)" (Home has its own
+  Scan QR) and put "You owe" last. Now: You owe (with Pay all) first, then Pay someone, then paying a
+  shop. Lint problems in PayPage.jsx are the same 6 as on main. Checked on the iPhone with the mock.
+- Seen and left: design/sign-in already has the quieter Login/Register switch for the sign-in page.
+
 ## Waiting list
 
 - **Seeing the app run**: now possible with `npm run dev:mock` (branch `improve/dev-mock`); the

@@ -181,3 +181,8 @@ No `.env` here, so the app never reaches the live Supabase project; nothing touc
 ## Even line breaks (branch `design/text-wrap`)
 - Headings use `text-wrap: balance`; paragraphs, list items, labels and small notes use `text-wrap: pretty`, as in Liftbook and Muhurta.
 - No single short word alone on a last line. Home checked on the iPhone simulator (nothing moved); lint unchanged (CSS only), build ok, no mock values in dist.
+
+## Phone overlaps (branch `fix/phone-overlaps`)
+- Activity > Add a payment: the Payment date box ran past the card's right edge on iOS. `.row2` columns can now shrink (`min-width: 0`), and date boxes fill their column, with the date vertically centred and at the left like the other fields.
+- The round chat button sat on top of the Profile tab. On screens up to 900px it now sits above the bottom bar.
+- Checked on the iPhone 18 Pro simulator; ChatBot.jsx lint same as main (0), build ok, no mock values in dist.

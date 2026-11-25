@@ -204,3 +204,7 @@ No `.env` here, so the app never reaches the live Supabase project; nothing touc
   width from the hint on a phone. It is now a slate line magnifier inside the box (the box also
   gets an "Search" label for screen readers). Checked on the iPhone with the mock; lint unchanged
   from main (21 errors there already), build passes.
+- Expenses header (same branch): on a phone "+ Add friend" wrapped onto a line of its own under the
+  Groups / Quick split tabs, looking like a stray third tab. Slimmer padding on phones keeps all
+  three on one row with Add friend on the right, as on a computer. Checked on the iPhone; SplitHub.jsx
+  lints clean, overall lint unchanged (21 errors, as on main), build passes.

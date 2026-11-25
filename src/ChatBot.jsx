@@ -164,6 +164,7 @@ export default function ChatBot({ entries = [], friends = [] }) {
         <button
           type="button"
           aria-label="Open chat"
+          className="cb-fab"
           onClick={() => setOpen(true)}
           style={{
             position: "fixed", right: 20, bottom: 20, zIndex: 1000,
@@ -178,6 +179,7 @@ export default function ChatBot({ entries = [], friends = [] }) {
 
       {open && (
         <div
+          className="cb-panel"
           style={{
             position: "fixed", right: 16, bottom: 16, zIndex: 1000,
             width: "min(380px, calc(100vw - 32px))", height: "min(540px, 75vh)",

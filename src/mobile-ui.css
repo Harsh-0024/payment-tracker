@@ -57,3 +57,17 @@ html[data-theme="dark"] .mh-row-ic { color: #9db8ff; }
 .mh-row .pos { color: #16a34a; }
 .mh-row .neg { color: #e11d48; }
 .mh-row .mut { color: var(--mut, #5b6b8f); }
+
+/* The helper's chat button and panel sit above the bottom bar, not on top of the Profile tab
+   (their inline styles place them 16-20px from the bottom). */
+.mb-app .cb-fab { bottom: calc(96px + env(safe-area-inset-bottom)) !important; right: 16px !important; }
+.mb-app .cb-panel { bottom: calc(92px + env(safe-area-inset-bottom)) !important; height: min(540px, calc(100dvh - 150px - env(safe-area-inset-top) - env(safe-area-inset-bottom))) !important; }
+
+/* iOS Safari gives date fields their own minimum width and centres the date, so they ran past
+   the card's right edge. Make them behave like the other fields. */
+.mb-app input[type="date"] { -webkit-appearance: none; appearance: none; display: block; width: 100%; min-width: 0; max-width: 100%; text-align: left; line-height: 52px; }
+.mb-app input[type="date"]::-webkit-date-and-time-value { text-align: left; margin: 0; }
+
+/* Paired fields (Amount + Payment date) stack on a phone; the 16px gap meant for side by side
+   came on top of the label's own spacing, so the pair had a larger gap than every other field. */
+.mb-app .row2 { row-gap: 0; }

@@ -222,7 +222,13 @@ export function MobileGroups({ friends, entries, go, manage, reload, setError })
           <button type="button" className="ms-cta" onClick={() => setView({ t: "manage" })}>Add friends</button>
         </div>
       )}
-      {friends.length > 0 && shown.length === 0 && <p className="ms-empty">Nothing found.</p>}
+      {friends.length > 0 && shown.length === 0 && (
+        <p className="ms-empty">
+          {q.trim() ? `No group called “${q.trim()}”${pill === "All" ? "" : ` in ${pill}`}.`
+            : pill === "Active" ? "Nothing open: every group is settled up."
+              : "No archived groups. A group moves here once everything in it is settled."}
+        </p>
+      )}
 
       {shown.map((f) => {
         const { list, net } = info(f);
@@ -231,7 +237,7 @@ export function MobileGroups({ friends, entries, go, manage, reload, setError })
             <Avs names={[f.name, "You"]} s={40} />
             <span className="ms-g-mid">
               <b>{f.name}</b>
-              <small>{list.length} expense{list.length === 1 ? "" : "s"} • <em className={netCls(net)}>{net === 0 ? "Settled" : R(Math.abs(net))}</em></small>
+              <small>{list.length} expense{list.length === 1 ? "" : "s"} • <em className={netCls(net)}>{net === 0 ? "Settled" : net > 0 ? `owes you ${R(net)}` : `you owe ${R(-net)}`}</em></small>
             </span>
             <Ic n="chev" s={20} />
           </button>

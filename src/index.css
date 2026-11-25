@@ -523,6 +523,7 @@ nav { display: flex; flex-direction: column; gap: 6px; flex: 1; }
   .main h1 { font-size: 32px; }
   h1 { font-size: 34px; }
   .row2, .two-col { grid-template-columns: 1fr; }
+  .row2 { row-gap: 0; } /* stacked: each label's own top margin spaces the fields, as everywhere else in the form */
   .auth { margin: 16px 14px; padding: 26px 20px; }
   .topbar { padding: 18px 20px; }
 }

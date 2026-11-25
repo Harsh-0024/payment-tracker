@@ -91,6 +91,17 @@ No `.env` here, so the app never reaches the live Supabase project; nothing touc
   group showed "Settled up" beside "Aarav pays me". Fixed; it now shows "You are owed ₹6,000".
 - Checked on the iPhone: list, opening Goa trip, Back, + New group. Build has no mock in it.
 
+## Phone Activity page fixes (fix/phone-activity)
+
+- The "Payment date" and "Pay me back by" fields ran past the card's right edge on an iPhone
+  (iOS gives date fields their own minimum width), with the date centred. They now fill the field
+  like the others, the date on the left and in the middle vertically. Same for every date field
+  in the phone layout (groups, quick split).
+- The helper's round chat button sat on top of the Profile tab, so Profile couldn't be tapped
+  there. The button and its open panel now sit above the bottom bar.
+- Amount and Payment date had a bigger gap between them than any other pair of fields; now even.
+- Checked on the iPhone, with the chat open and closed. Lint clean; build has no mock in it.
+
 ## Waiting list
 
 - **Seeing the app run**: now possible with `npm run dev:mock` (branch `improve/dev-mock`); the

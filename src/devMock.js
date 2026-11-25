@@ -2,8 +2,8 @@
 // Turned on only by `npm run dev:mock` (VITE_MOCK=1 in dev). Production builds never include it:
 // supabaseClient.js checks import.meta.env.DEV first, so Vite drops this file from the build.
 //
-// Everything lives in this tab's memory, starts from the demo rows below and is gone on reload.
-// Nothing is sent anywhere.
+// The data lives in this tab's memory, starts from the demo rows below and is gone on reload
+// (only "signed in" is remembered, in sessionStorage). Nothing is sent anywhere.
 
 const ME = { id: "u-demo", email: "demo@example.test", user_metadata: { name: "Demo" } };
 
@@ -122,12 +122,32 @@ function query(table) {
   return q;
 }
 
+// Remembered for this tab only, so a dev-server reload (or switching branches) doesn't sign you out.
+// The demo rows still start fresh on each load.
+const KEY = "splitpay-mock-signed-in";
+const remember = (on) => {
+  try {
+    if (on) sessionStorage.setItem(KEY, "1");
+    else sessionStorage.removeItem(KEY);
+  } catch {
+    /* private mode: just forget */
+  }
+};
+const remembered = () => {
+  try {
+    return sessionStorage.getItem(KEY) === "1";
+  } catch {
+    return false;
+  }
+};
+
 export function createMockClient() {
   db = seed();
-  let session = null;
+  let session = remembered() ? { access_token: "mock-token", user: ME } : null;
   const listeners = new Set();
   const signIn = () => {
     session = { access_token: "mock-token", user: ME };
+    remember(true);
     listeners.forEach((cb) => cb("SIGNED_IN", session));
     return { data: { session, user: ME }, error: null };
   };
@@ -148,6 +168,7 @@ export function createMockClient() {
       async verifyOtp() { return signIn(); },
       async signOut() {
         session = null;
+        remember(false);
         db = seed();
         listeners.forEach((cb) => cb("SIGNED_OUT", null));
         return { error: null };

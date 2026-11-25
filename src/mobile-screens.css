@@ -104,6 +104,11 @@ html[data-theme="dark"] .ms-row-ic { color: #9db8ff; }
 .ms-list button span { flex: 1; }
 .ms-list button svg:last-child { color: var(--mut, #5b6b8f); }
 .ms-list u { text-decoration: none; min-width: 22px; padding: 2px 7px; border-radius: 999px; background: var(--pri, #1d62f0); color: #fff; font-size: 12px; font-weight: 800; text-align: center; }
+.ms-sw { flex: none; position: relative; width: 44px; height: 26px; border-radius: 999px; background: #c5cfe3; transition: background .2s; }
+.ms-sw::after { content: ""; position: absolute; top: 3px; left: 3px; width: 20px; height: 20px; border-radius: 50%; background: #fff; box-shadow: 0 1px 3px rgba(15, 31, 74, .25); transition: transform .2s; }
+.ms-sw.on { background: var(--pri, #1d62f0); }
+.ms-sw.on::after { transform: translateX(18px); }
+@media (prefers-reduced-motion: reduce) { .ms-sw, .ms-sw::after { transition: none; } }
 .ms-logout { display: block; width: 100%; height: 54px; margin-top: 22px; border: 0; border-radius: 999px; background: var(--tile, #eef3ff); color: var(--ink, #0f1f4a); font-size: 16px; font-weight: 700; cursor: pointer; box-shadow: none; }
 .ms-card { padding: 14px; border-radius: 20px; background: var(--card, #fff); border: 1px solid var(--cardline, #e9eefb); }
 .ms-text p { margin: 0 0 12px; font-size: 15px; line-height: 1.5; color: var(--ink, #0f1f4a); }

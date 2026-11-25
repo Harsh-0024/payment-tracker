@@ -300,7 +300,8 @@ export function MobileProfile({ session, name, entries, requests, owes, go, sett
     ["chart", "Analytics", () => go("Analytics")],
     ["gear", "Settings", () => setView("settings")],
     ["bell", "Notifications", () => setView("notif"), requests + owes.length || null],
-    ["moon", dark ? "Light mode" : "Dark mode", onTheme],
+    // A switch, not a link: it changes the theme here and opens nothing.
+    ["moon", "Dark mode", onTheme, null, { on: !!dark }],
     ["help", "Help & Support", () => setView("help")],
     ["info", "About SplitPay", () => setView("about")],
   ];
@@ -320,12 +321,12 @@ export function MobileProfile({ session, name, entries, requests, owes, go, sett
         <i><Ic n="arrow" s={18} /></i>
       </button>
       <div className="ms-list">
-        {rows.map(([ic, label, fn, badge]) => (
-          <button type="button" key={label} onClick={fn}>
+        {rows.map(([ic, label, fn, badge, sw]) => (
+          <button type="button" key={label} onClick={fn} {...(sw ? { role: "switch", "aria-checked": sw.on } : {})}>
             <Ic n={ic} s={22} />
             <span>{label}</span>
             {badge ? <u>{badge}</u> : null}
-            <Ic n="chev" s={18} />
+            {sw ? <i className={`ms-sw${sw.on ? " on" : ""}`} aria-hidden="true" /> : <Ic n="chev" s={18} />}
           </button>
         ))}
       </div>

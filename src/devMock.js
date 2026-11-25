@@ -38,7 +38,7 @@ function seed() {
       { id: "m2", group_id: "g1", name: "Meera", member_user_id: null },
     ],
     friend_group_expenses: [
-      { id: "x1", group_id: "g1", kind: "expense", title: "Villa", amount: 9000, paid_by: "me", shares: { me: 3000, Aarav: 3000, Meera: 3000 }, expense_date: day(-8) },
+      { id: "x1", group_id: "g1", kind: "expense", title: "Villa", amount: 9000, paid_by: "__me__", shares: { __me__: 3000, Aarav: 3000, Meera: 3000 }, expense_date: day(-8) },
     ],
     app_payments: [],
   };

@@ -1,4 +1,6 @@
 /* Phone home screen (matches the mockup): Total Balance, quick actions, recent activity */
+import { friendlyDate } from "./dates";
+
 const money = (n) => "₹" + Math.abs(Number(n)).toLocaleString("en-IN");
 
 const QA_ICONS = {
@@ -73,7 +75,7 @@ export default function MobileHome({ entries, go }) {
             <div className="mh-row-mid">
               <b>{e.note || e.mode || "Payment"}</b>
               <small>
-                {mine ? `You paid` : `Paid by ${e.friend}`} · {new Date(e.payment_date).toLocaleDateString("en-IN")}
+                {mine ? `You paid` : `Paid by ${e.friend}`} · {friendlyDate(e.payment_date)}
               </small>
             </div>
             <div className="mh-row-end">

@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { supabase } from "./supabaseClient";
 import { Cover, kindFor, hue, ini, R } from "./DesktopHome";
+import { friendlyDate } from "./dates";
 
 const IC = {
   back: <path d="M15 5l-7 7 7 7" />,
@@ -38,7 +39,9 @@ function Avs({ names, s = 40 }) {
     </span>
   );
 }
-const dt = (x) => new Date(x).toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" });
+// Lists say "Yesterday" or "24 Nov"; one expense's own page keeps the whole date.
+const dt = friendlyDate;
+const fullDt = (x) => new Date(x).toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" });
 const sumA = (l) => l.reduce((s, e) => s + Number(e.amount), 0);
 
 export function MobileGroups({ friends, entries, go, manage, reload, setError }) {
@@ -89,7 +92,7 @@ export function MobileGroups({ friends, entries, go, manage, reload, setError })
           <span className="ms-ed-ic"><Ic n="receipt" s={34} /></span>
           <h3>{e.note || e.mode || "Payment"}</h3>
           <b>{R(e.amount)}</b>
-          <small>{dt(e.payment_date || e.created_at)}</small>
+          <small>{fullDt(e.payment_date || e.created_at)}</small>
         </div>
         <div className="ms-split">
           <span>Between you and {e.friend}</span>
@@ -106,7 +109,7 @@ export function MobileGroups({ friends, entries, go, manage, reload, setError })
         <div className="ms-facts">
           <div><span>Payment mode</span><b>{e.mode || "-"}</b></div>
           <div><span>Status</span><b>{settled ? "Settled" : "Pending"}</b></div>
-          {e.due_date && <div><span>Due date</span><b>{dt(e.due_date + "T00:00:00")}</b></div>}
+          {e.due_date && <div><span>Due date</span><b>{fullDt(e.due_date + "T00:00:00")}</b></div>}
         </div>
         {!settled ? (
           <button type="button" className="ms-cta" onClick={() => go("Settlements")}>Settle Up</button>

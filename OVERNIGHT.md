@@ -197,3 +197,10 @@ No `.env` here, so the app never reaches the live Supabase project; nothing touc
   while Home and Profile show your own initial ("D" for Demo). They now use your initial too.
   Checked on the iPhone with the local mock. Lint has no new problems in the changed files
   (main's existing ones are fixed on `improve/lint-cleanup`); build passes.
+
+## Search icon (26 Nov, branch improve/phone-polish, from origin/main)
+
+- Activity search: the 🔍 emoji sat beside the box, out of step with the app's line icons, and took
+  width from the hint on a phone. It is now a slate line magnifier inside the box (the box also
+  gets an "Search" label for screen readers). Checked on the iPhone with the mock; lint unchanged
+  from main (21 errors there already), build passes.

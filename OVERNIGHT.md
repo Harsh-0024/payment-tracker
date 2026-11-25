@@ -116,6 +116,13 @@ No `.env` here, so the app never reaches the live Supabase project; nothing touc
   shop. Lint problems in PayPage.jsx are the same 6 as on main. Checked on the iPhone with the mock.
 - Seen and left: design/sign-in already has the quieter Login/Register switch for the sign-in page.
 
+## Friendly dates (improve/friendly-dates, from origin/main)
+
+- Home's Recent Activity said "You paid · 24/11/2026"; the expense rows in a group said "24 Nov 2026".
+  Both lists now say "Today", "Yesterday", "Tomorrow", "22 Nov", or "31 Dec 2025" for another year
+  (src/dates.js). A plain "2026-11-24" is read as that local day, not UTC midnight. An expense's own
+  page keeps the whole date. Checked on iPhone 18 Pro with the mock; lint unchanged, build passes.
+
 ## Waiting list
 
 - **Seeing the app run**: now possible with `npm run dev:mock` (branch `improve/dev-mock`); the

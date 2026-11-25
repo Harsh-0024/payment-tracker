@@ -106,6 +106,8 @@ No `.env` here, so the app never reaches the live Supabase project; nothing touc
   it is now a gear. Checked on the iPhone in light and dark.
 - Home: Recent Activity dates read "24 Nov" instead of "24/11/2026" (the year shows only for
   another year), like the date fields. Checked on the iPhone.
+- Switching pages kept the last page's scroll position, so "+" opened halfway down its form and
+  Profile with the avatar scrolled away. Each page now opens at its top. Checked on the iPhone.
 
 ## Waiting list
 

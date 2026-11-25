@@ -469,17 +469,6 @@ function NewPay({ friends, onStart, onScan }) {
   return (
     <>
       <div className="card">
-        <h3>Pay a merchant (scan QR)</h3>
-        <p className="sub" style={{ margin: "8px 0 0" }}>
-          Scan a shop's UPI QR, pay with any UPI app, and the payment is saved here. You can also add
-          your friend's share.
-        </p>
-        <div style={{ marginTop: 16 }}>
-          <button className="small" type="button" onClick={onScan}>Scan QR</button>
-        </div>
-      </div>
-
-      <div className="card">
         <h3>Pay someone</h3>
         <label>Friend</label>
         <select value={friend} onChange={(e) => setFriend(e.target.value)}>
@@ -505,6 +494,17 @@ function NewPay({ friends, onStart, onScan }) {
           >
             Pay
           </button>
+        </div>
+      </div>
+
+      <div className="card">
+        <h3>Pay a merchant (scan QR)</h3>
+        <p className="sub" style={{ margin: "8px 0 0" }}>
+          Scan a shop's UPI QR, pay with any UPI app, and the payment is saved here. You can also add
+          your friend's share.
+        </p>
+        <div style={{ marginTop: 16 }}>
+          <button className="small" type="button" onClick={onScan}>Scan QR</button>
         </div>
       </div>
     </>
@@ -659,6 +659,45 @@ export default function PayPage({ entries, friends, reload, setError }) {
       <h1>Pay</h1>
       <p className="sub">Pay with your UPI app. Every payment is saved in your history.</p>
 
+      {/* What you owe comes first: Settle Up on the phone opens this page, and that list is what
+          settling up means. Paying someone else, or a shop, follows. */}
+      <h2>You owe</h2>
+      {Object.keys(owed).length === 0 && <p className="sub">You don't owe anything right now.</p>}
+      {Object.entries(owed).map(([friend, list]) => {
+        const payable = list.filter((e) => !waiting.has(e.id));
+        const total = payable.reduce((s, e) => s + Number(e.amount), 0);
+        return (
+          <div className="card" key={friend}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 12, flexWrap: "wrap" }}>
+              <h3>{friend}</h3>
+              {payable.length > 0 && (
+                <button className="small" onClick={() => setTarget({ friend, entries: payable })}>
+                  Pay all {rupee(total)}
+                </button>
+              )}
+            </div>
+            {list.map((e) => (
+              <div className="entry" key={e.id}>
+                <div>
+                  <div className="entry-name">{rupee(e.amount)}</div>
+                  <div className="entry-meta">
+                    {new Date(e.payment_date).toLocaleDateString("en-IN")}
+                    {e.note ? ` · ${e.note}` : ""}
+                  </div>
+                </div>
+                {waiting.has(e.id) ? (
+                  <span className="entry-meta">Waiting for confirmation</span>
+                ) : (
+                  <button className="ghost" onClick={() => setTarget({ friend, entries: [e] })}>
+                    Pay
+                  </button>
+                )}
+              </div>
+            ))}
+          </div>
+        );
+      })}
+
       {notice && (
         <div className="card notify">
           <strong>{notice}</strong>
@@ -703,43 +742,6 @@ export default function PayPage({ entries, friends, reload, setError }) {
           onStart={(friend, amount) => setTarget({ friend, entries: [], amount })}
         />
       )}
-
-      <h2>You owe</h2>
-      {Object.keys(owed).length === 0 && <p className="sub">You don't owe anything right now.</p>}
-      {Object.entries(owed).map(([friend, list]) => {
-        const payable = list.filter((e) => !waiting.has(e.id));
-        const total = payable.reduce((s, e) => s + Number(e.amount), 0);
-        return (
-          <div className="card" key={friend}>
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 12, flexWrap: "wrap" }}>
-              <h3>{friend}</h3>
-              {payable.length > 0 && (
-                <button className="small" onClick={() => setTarget({ friend, entries: payable })}>
-                  Pay all {rupee(total)}
-                </button>
-              )}
-            </div>
-            {list.map((e) => (
-              <div className="entry" key={e.id}>
-                <div>
-                  <div className="entry-name">{rupee(e.amount)}</div>
-                  <div className="entry-meta">
-                    {new Date(e.payment_date).toLocaleDateString("en-IN")}
-                    {e.note ? ` · ${e.note}` : ""}
-                  </div>
-                </div>
-                {waiting.has(e.id) ? (
-                  <span className="entry-meta">Waiting for confirmation</span>
-                ) : (
-                  <button className="ghost" onClick={() => setTarget({ friend, entries: [e] })}>
-                    Pay
-                  </button>
-                )}
-              </div>
-            ))}
-          </div>
-        );
-      })}
 
       <h2>Payment history</h2>
       {payments.length === 0 && <p className="sub">No app payments yet.</p>}

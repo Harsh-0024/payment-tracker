@@ -122,6 +122,8 @@ No `.env` here, so the app never reaches the live Supabase project; nothing touc
   Both lists now say "Today", "Yesterday", "Tomorrow", "22 Nov", or "31 Dec 2025" for another year
   (src/dates.js). A plain "2026-11-24" is read as that local day, not UTC midnight. An expense's own
   page keeps the whole date. Checked on iPhone 18 Pro with the mock; lint unchanged, build passes.
+- Also checked a group (Aarav): rows read "You paid • Yesterday", "Aarav paid • 13 Nov"; the
+  expense page still reads "24 Nov 2026" and due date "1 Dec 2026".
 
 ## Waiting list
 

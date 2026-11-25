@@ -80,3 +80,9 @@ No `.env` here, so the app never reaches the live Supabase project; nothing touc
   rest of this item is kept for the record. Was waiting on a way in without live data. Every screen is behind a Supabase
   sign-in; without the project's URL and key the app can only show its sign-in page. A local mock
   (as Liftbook has) would let screens be checked without touching real accounts.
+- **Where groups live on the phone (your call)**: the bottom tab called "Groups" (`MobileGroups`)
+  lists one card per *friend* (Aarav, Kabir, Meera). Real groups such as "Goa trip"
+  (`friend_groups`, `GroupsPage`) only appear behind the "+" button, under its Groups / Quick split
+  switch. Someone looking for a trip group would open the Groups tab and not find it. Options:
+  (a) rename the tab "Friends" and leave groups under "+"; (b) show real groups at the top of the
+  Groups tab, friends below; (c) leave as is. Not changed, since it's a design decision.

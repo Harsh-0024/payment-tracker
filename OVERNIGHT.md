@@ -125,6 +125,16 @@ No `.env` here, so the app never reaches the live Supabase project; nothing touc
 - Also checked a group (Aarav): rows read "You paid • Yesterday", "Aarav paid • 13 Nov"; the
   expense page still reads "24 Nov 2026" and due date "1 Dec 2026".
 
+## Groups list words (improve/empty-states, from origin/main)
+
+- My Groups showed each friend's balance as a bare green or red amount ("₹1,200", "₹450"); which
+  way the money goes was left to the colour. Now "owes you ₹1,200" or "you owe ₹450" (still
+  coloured), "Settled" as before.
+- A filter with nothing in it said "Nothing found." Now: Archived, "No archived groups. A group
+  moves here once everything in it is settled."; Active, "Nothing open: every group is settled
+  up."; a search, "No group called “x”" (plus "in Active" when a filter is on). Checked on iPhone
+  18 Pro with the mock; MobileScreens.jsx lints clean, build passes, no mock in the build.
+
 ## Waiting list
 
 - **Seeing the app run**: now possible with `npm run dev:mock` (branch `improve/dev-mock`); the

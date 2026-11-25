@@ -115,17 +115,29 @@ export default function GlobalSearch({ entries = [], friends = [] }) {
       }}
     >
       <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
-        <span style={{ fontSize: 18 }}>🔍</span>
+        {/* A line magnifier inside the box, like the app's other icons (the emoji looked out of place
+            and took width from the hint on a phone). */}
+        <div style={{ position: "relative", flex: 1, minWidth: 0, display: "flex" }}>
+        <svg
+          aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#64748b"
+          strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
+          style={{ position: "absolute", left: 14, top: "50%", transform: "translateY(-50%)", pointerEvents: "none" }}
+        >
+          <circle cx="11" cy="11" r="7" />
+          <path d="m20 20-3.5-3.5" />
+        </svg>
         <input
+          aria-label="Search"
           value={q}
           onChange={(e) => setQ(e.target.value)}
           onFocus={loadPayments}
           placeholder="Search friend, amount, note, date, UPI ID, status..."
           style={{
-            flex: 1, border: "1px solid #cbd5e1", borderRadius: 999, padding: "10px 14px",
+            flex: 1, border: "1px solid #cbd5e1", borderRadius: 999, padding: "10px 14px 10px 38px",
             fontSize: 14, outline: "none", background: "#fff", color: "#0f172a", minWidth: 0,
           }}
         />
+        </div>
         {active && (
           <button
             type="button"

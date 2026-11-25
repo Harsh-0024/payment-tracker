@@ -60,6 +60,13 @@ No `.env` here, so the app never reaches the live Supabase project; nothing touc
   to you), groups and recent activity, no console errors. New files lint clean (the 28 problems
   `npm run lint` reports on that branch are in files from main); `npm run build` passes.
 
+### Branch `improve/balance-words` (from `origin/main`)
+
+- Phone Groups list: each friend's balance was only "₹1,200" in green or "₹450" in red, so which
+  way the money went was told by colour alone. It now reads "owes you ₹1,200" / "you owe ₹450"
+  (still coloured), like the friend page's own "You're owed / You owe". Checked on the iPhone 18
+  Pro with the dev mock: all three rows fit on one line. Lint shows nothing new in the file; build passes.
+
 ## Waiting list
 
 - **Seeing the app run**: now possible with `npm run dev:mock` (branch `improve/dev-mock`); the

@@ -45,8 +45,24 @@ No `.env` here, so the app never reaches the live Supabase project; nothing touc
 
 - The heavy screens load on first use (React.lazy): pay/scan page (html5-qrcode), friend scan (jsqr), profile, and the spending pie chart (recharts, moved to SpendingChart.jsx); reminder.js imports qrcode only when sharing a UPI QR. Main JS: 1,448 kB (429 kB gzip) → 555 kB (155 kB gzip). Lint count unchanged (28, as on main). Each split module loads in the dev server; the welcome screen renders on the iPhone. Screens behind sign-in were not tapped through (need a Supabase mock: Waiting list).
 
+### Branch `improve/dev-mock` (from `origin/main`)
+
+- `npm run dev:mock` starts the app on a pretend Supabase (`src/devMock.js`): demo friends (Aarav,
+  Kabir, Meera), five entries, a "Goa trip" group. Any email and password sign in as "Demo".
+  Everything stays in that browser tab's memory and starts over on reload or sign-out; nothing is
+  sent anywhere, and no `.env` or real project is needed.
+- Production is untouched: `supabaseClient.js` picks the mock only when `import.meta.env.DEV` and
+  `VITE_MOCK=1`, and the mock runs nothing on import, so the build leaves it out (checked: none of
+  its text is in `dist/`).
+- Not in the mock yet: friend requests and the other RPCs (they answer "isn't in the mock"),
+  uploads, QR downloads, codes by SMS.
+- Checked: signed in, the Dashboard shows the demo totals (₹5,749 spent, ₹450 owed, ₹4,199 owed
+  to you), groups and recent activity, no console errors. New files lint clean (the 28 problems
+  `npm run lint` reports on that branch are in files from main); `npm run build` passes.
+
 ## Waiting list
 
-- **Seeing the app run** (waits on: a way in without live data). Every screen is behind a Supabase
+- **Seeing the app run**: now possible with `npm run dev:mock` (branch `improve/dev-mock`); the
+  rest of this item is kept for the record. Was waiting on a way in without live data. Every screen is behind a Supabase
   sign-in; without the project's URL and key the app can only show its sign-in page. A local mock
   (as Liftbook has) would let screens be checked without touching real accounts.

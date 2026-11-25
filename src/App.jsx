@@ -825,7 +825,8 @@ function Friends({ friends, connections, profiles, entries, myId, reload, setErr
 }
 
 /* ---------- Analytics ---------- */
-const COLORS = ["#4a6cf7", "#1aa0f6", "#f8a53a", "#3ccf6e", "#ef6a8a", "#14b8a6", "#8aa7ff"];
+// Neighbouring slices in clearly different hues: Card and UPI were two blues side by side.
+const COLORS = ["#4a6cf7", "#f8a53a", "#14b8a6", "#ef6a8a", "#8b5cf6", "#3ccf6e", "#94a3b8"];
 
 function SpendingChart({ entries }) {
   const [by, setBy] = useState("mode");
@@ -835,7 +836,8 @@ function SpendingChart({ entries }) {
     const key = by === "mode" ? e.mode : e.friend;
     totals[key] = (totals[key] || 0) + Number(e.amount);
   });
-  const data = Object.entries(totals).map(([name, value]) => ({ name, value }));
+  // Biggest first, so the colours and the legend read in order of size.
+  const data = Object.entries(totals).map(([name, value]) => ({ name, value })).sort((a, b) => b.value - a.value);
 
   return (
     <div className="card">
@@ -852,12 +854,14 @@ function SpendingChart({ entries }) {
       ) : (
         <div style={{ width: "100%", height: 320, marginTop: 8 }}>
           <ResponsiveContainer>
-            <PieChart>
+            {/* Room above and below the pie, so the outside % labels aren't cut by the buttons or
+                run into the legend on a phone. */}
+            <PieChart margin={{ top: 24, bottom: 12 }}>
               <Pie
                 data={data}
                 dataKey="value"
                 nameKey="name"
-                outerRadius={110}
+                outerRadius="70%"
                 label={({ percent }) => `${(percent * 100).toFixed(0)}%`}
               >
                 {data.map((_, i) => (
@@ -865,7 +869,8 @@ function SpendingChart({ entries }) {
                 ))}
               </Pie>
               <Tooltip formatter={(v) => rupee(v)} />
-              <Legend />
+              {/* The amount beside each name: the slices alone gave no figures on a phone. */}
+              <Legend formatter={(value, entry) => `${value} ${rupee(entry.payload.value)}`} />
             </PieChart>
           </ResponsiveContainer>
         </div>

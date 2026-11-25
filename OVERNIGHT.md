@@ -177,3 +177,7 @@ No `.env` here, so the app never reaches the live Supabase project; nothing touc
 - Legend shows each amount ("Card ₹2,999"), so a phone user gets figures without tapping.
 - Pie has room above and below: the top % label was cut by the buttons and the bottom one ran into the legend.
 - Checked on the iPhone 18 Pro simulator; lint unchanged vs main, build ok, no mock values in dist.
+
+## Even line breaks (branch `design/text-wrap`)
+- Headings use `text-wrap: balance`; paragraphs, list items, labels and small notes use `text-wrap: pretty`, as in Liftbook and Muhurta.
+- No single short word alone on a last line. Home checked on the iPhone simulator (nothing moved); lint unchanged (CSS only), build ok, no mock values in dist.

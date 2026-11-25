@@ -313,7 +313,7 @@ export function MobileProfile({ session, name, entries, requests, owes, go, sett
         <small>{email}</small>
       </div>
       <button type="button" className="ms-owed" onClick={() => go("Settlements")}>
-        <span>Total Owed</span>
+        <span>You owe</span>
         <b>{R(youOwe)}</b>
         <em>You get {R(youGet)}</em>
         <i><Ic n="arrow" s={18} /></i>

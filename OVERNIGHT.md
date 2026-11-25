@@ -157,3 +157,10 @@ No `.env` here, so the app never reaches the live Supabase project; nothing touc
   rest of this item is kept for the record. Was waiting on a way in without live data. Every screen is behind a Supabase
   sign-in; without the project's URL and key the app can only show its sign-in page. A local mock
   (as Liftbook has) would let screens be checked without touching real accounts.
+
+## Home balance card (branch `design/home-card`, from origin/main)
+
+- The light wave on the phone's Total Balance card began partway up its left side (`M0 80V58`), so a
+  hard vertical line showed under "You owe", 30% of the way across the card. The wave now rises
+  from the card's bottom edge in one curve. Lint clean for the file, build passes, no mock values in
+  `dist/`; checked on the iPhone 18 Pro simulator.

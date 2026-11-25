@@ -9,7 +9,8 @@ const IC = {
   plus: <path d="M12 5v14M5 12h14" />,
   search: (<><circle cx="11" cy="11" r="6.5" /><path d="M16 16l4.5 4.5" /></>),
   more: (<><circle cx="5" cy="12" r="1.5" fill="currentColor" /><circle cx="12" cy="12" r="1.5" fill="currentColor" /><circle cx="19" cy="12" r="1.5" fill="currentColor" /></>),
-  gear: (<><circle cx="12" cy="12" r="3" /><path d="M12 2.5v3M12 18.5v3M4.2 7l2.6 1.5M17.2 15.5l2.6 1.5M4.2 17l2.6-1.5M17.2 8.5l2.6-1.5" /></>),
+  // A toothed gear (the old six spokes read as a sun).
+  gear: (<g transform="translate(12 12) scale(0.85) translate(-12 -12)"><circle cx="12" cy="12" r="3" /><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" /></g>),
   bell: (<><path d="M6 16V11a6 6 0 0 1 12 0v5l1.5 2h-15z" /><path d="M10 21h4" /></>),
   help: (<><circle cx="12" cy="12" r="9" /><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.7.4-1 .9-1 1.7M12 17h.01" /></>),
   info: (<><circle cx="12" cy="12" r="9" /><path d="M12 11v5M12 8h.01" /></>),
@@ -299,7 +300,7 @@ export function MobileProfile({ session, name, entries, requests, owes, go, sett
     ["chart", "Analytics", () => go("Analytics")],
     ["gear", "Settings", () => setView("settings")],
     ["bell", "Notifications", () => setView("notif"), requests + owes.length || null],
-    ["moon", dark ? "Light mode" : "Dark mode", onTheme],
+    ["moon", "Dark mode", onTheme, null, "switch"],
     ["help", "Help & Support", () => setView("help")],
     ["info", "About SplitPay", () => setView("about")],
   ];
@@ -319,12 +320,13 @@ export function MobileProfile({ session, name, entries, requests, owes, go, sett
         <i><Ic n="arrow" s={18} /></i>
       </button>
       <div className="ms-list">
-        {rows.map(([ic, label, fn, badge]) => (
-          <button type="button" key={label} onClick={fn}>
+        {rows.map(([ic, label, fn, badge, kind]) => (
+          <button type="button" key={label} onClick={fn}
+            {...(kind === "switch" ? { role: "switch", "aria-checked": dark } : {})}>
             <Ic n={ic} s={22} />
             <span>{label}</span>
             {badge ? <u>{badge}</u> : null}
-            <Ic n="chev" s={18} />
+            {kind === "switch" ? <i className={`ms-sw${dark ? " on" : ""}`} aria-hidden="true" /> : <Ic n="chev" s={18} />}
           </button>
         ))}
       </div>

@@ -439,7 +439,7 @@ function GroupDetail({
         {plan.map((s, i) => (
           <div className="entry" key={i}>
             <div>
-              <div className="entry-name">{dn(s.from)} pays {dn(s.to)}</div>
+              <div className="entry-name">{s.from === meKey ? `You pay ${dn(s.to)}` : `${dn(s.from)} pays ${s.to === meKey ? "you" : dn(s.to)}`}</div>
               <div className="entry-meta">{rupee(s.amount)}</div>
             </div>
             {isOwner && (

@@ -1,5 +1,6 @@
 import { useState, useMemo } from "react";
 import "./dashboard.css";
+import { friendlyDate } from "./dates";
 
 const rupee = (n) => "₹" + Number(n).toLocaleString("en-IN");
 const COLORS = ["#4a6cf7", "#1aa0f6", "#f8a53a", "#3ccf6e", "#ef6a8a", "#14b8a6"];
@@ -167,7 +168,7 @@ export default function Dashboard({ entries = [], friends = [], groups = [], nam
                 <div className="sp-ico" style={{ background: c[2] + "26" }}>{c[3]}</div>
                 <div className="sp-main">
                   <div className="sp-t">{e.note || e.friend}</div>
-                  <div className="sp-s">{e.friend}{e.payment_date ? " • " + new Date(e.payment_date).toLocaleDateString("en-IN") : ""}</div>
+                  <div className="sp-s">{e.friend}{e.payment_date ? " • " + friendlyDate(e.payment_date) : ""}</div>
                 </div>
                 <div className="sp-amt">
                   {rupee(e.amount)}

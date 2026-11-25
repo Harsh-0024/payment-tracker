@@ -23,3 +23,9 @@ export function friendlyDate(x, now = new Date()) {
   if (d.getFullYear() !== now.getFullYear()) opts.year = "numeric";
   return d.toLocaleDateString("en-IN", opts);
 }
+
+// The same, mid-sentence: "Due yesterday", "Due 1 Dec".
+export const friendlyDateLower = (x, now) => {
+  const s = friendlyDate(x, now);
+  return /\d/.test(s) ? s : s.toLowerCase();
+};

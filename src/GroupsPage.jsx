@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react";
 import { supabase } from "./supabaseClient";
+import { friendlyDate } from "./dates";
 import { getUpi, openWhatsApp, shareQR } from "./reminder";
 
 const ME = "__me__";
 const rupee = (n) => "₹" + Number(n).toLocaleString("en-IN");
 const todayLocal = () => new Date().toLocaleDateString("en-CA");
 const round2 = (x) => Math.round(x * 100) / 100;
-const fmt = (s) => new Date(s + "T00:00:00").toLocaleDateString("en-IN");
+const fmt = (s) => friendlyDate(s);
 
 function equalShares(total, names) {
   const cents = Math.round(total * 100);

@@ -1,5 +1,11 @@
 /* Phone home screen (matches the mockup): Total Balance, quick actions, recent activity */
 const money = (n) => "₹" + Math.abs(Number(n)).toLocaleString("en-IN");
+// "24 Nov", with the year only when it isn't this year ("5 Dec 2025"), like the rest of the app.
+const shortDate = (d) => {
+  const t = new Date(d);
+  const sameYear = t.getFullYear() === new Date().getFullYear();
+  return t.toLocaleDateString("en-IN", { day: "numeric", month: "short", ...(sameYear ? {} : { year: "numeric" }) });
+};
 
 const QA_ICONS = {
   split: (<><path d="M6 3h12v18l-3-2-3 2-3-2-3 2z" /><path d="M9 8h6M9 12h6" /></>),
@@ -73,7 +79,7 @@ export default function MobileHome({ entries, go }) {
             <div className="mh-row-mid">
               <b>{e.note || e.mode || "Payment"}</b>
               <small>
-                {mine ? `You paid` : `Paid by ${e.friend}`} · {new Date(e.payment_date).toLocaleDateString("en-IN")}
+                {mine ? `You paid` : `Paid by ${e.friend}`} · {shortDate(e.payment_date)}
               </small>
             </div>
             <div className="mh-row-end">

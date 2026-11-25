@@ -135,6 +135,17 @@ No `.env` here, so the app never reaches the live Supabase project; nothing touc
   up."; a search, "No group called “x”" (plus "in Active" when a filter is on). Checked on iPhone
   18 Pro with the mock; MobileScreens.jsx lints clean, build passes, no mock in the build.
 
+## Activity page on the phone (fix/activity-layout, from origin/main)
+
+- The "Payment date" and "Pay me back by" fields on Activity > Add a payment ran past the right
+  edge of their card on the iPhone: Safari gives a date field its own width and ignores
+  `width: 100%`. On the phone layout they now drop the built-in look (so they take the card's
+  width) and keep the date centred in the 54 px field. The date picker still opens on a tap.
+- The round chat button sat at the bottom right, on top of the Profile tab, which then could not
+  be tapped there. On the phone it now sits 100 px up, above the bottom bar; the desktop keeps
+  20 px. Checked on iPhone 18 Pro with the mock; ChatBot.jsx lints clean, build passes, no mock
+  in the build.
+
 ## Waiting list
 
 - **Seeing the app run**: now possible with `npm run dev:mock` (branch `improve/dev-mock`); the

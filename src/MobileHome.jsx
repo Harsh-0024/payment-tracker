@@ -36,7 +36,7 @@ export default function MobileHome({ entries, go }) {
     <div className="mh">
       <button type="button" className="mh-bal" onClick={() => go("Settlements")}>
         <svg className="mh-wave" viewBox="0 0 200 80" preserveAspectRatio="none" aria-hidden="true">
-          <path d="M0 80V58c25-6 40-26 65-24s38 18 60 8 40-30 75-34v72z" />
+          <path d="M0 80c30-2 45-44 65-46s38 18 60 8 40-30 75-34v72z" />
         </svg>
         <span className="mh-bal-lbl">Total Balance</span>
         <span className="mh-bal-amt">{net < 0 ? "-" : ""}{money(net)}</span>

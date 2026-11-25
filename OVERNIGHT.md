@@ -186,3 +186,4 @@ No `.env` here, so the app never reaches the live Supabase project; nothing touc
 - Activity > Add a payment: the Payment date box ran past the card's right edge on iOS. `.row2` columns can now shrink (`min-width: 0`), and date boxes fill their column, with the date vertically centred and at the left like the other fields.
 - The round chat button sat on top of the Profile tab. On screens up to 900px it now sits above the bottom bar.
 - Checked on the iPhone 18 Pro simulator; ChatBot.jsx lint same as main (0), build ok, no mock values in dist.
+- Activity search placeholder cut off at "…UPI ID, st" on a phone: now "Search friend, amount, note or date" (shows whole); UPI ID and status still match, and the field's aria-label lists them. GlobalSearch.jsx lint same as main (1).

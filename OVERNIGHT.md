@@ -164,3 +164,10 @@ No `.env` here, so the app never reaches the live Supabase project; nothing touc
   hard vertical line showed under "You owe", 30% of the way across the card. The wave now rises
   from the card's bottom edge in one curve. Lint clean for the file, build passes, no mock values in
   `dist/`; checked on the iPhone 18 Pro simulator.
+
+## Profile card words (branch `improve/balance-words`)
+
+- The phone Profile card said "Total Owed ₹450" over "You get ₹4,199". "Total Owed" doesn't say who
+  owes whom, and with Home showing a ₹3,749 balance it read as money owed to you. It now says
+  "You owe ₹450", matching "You get" under it. Lint clean for the file (as on main), build passes,
+  no mock values in `dist/`; checked on the iPhone 18 Pro simulator.

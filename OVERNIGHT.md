@@ -104,6 +104,8 @@ No `.env` here, so the app never reaches the live Supabase project; nothing touc
 - Profile: the Dark mode row had a go-to-page arrow and, once on, said "Light mode" beside a moon.
   It now always says "Dark mode" and ends in an on/off switch. The Settings icon looked like a sun;
   it is now a gear. Checked on the iPhone in light and dark.
+- Home: Recent Activity dates read "24 Nov" instead of "24/11/2026" (the year shows only for
+  another year), like the date fields. Checked on the iPhone.
 
 ## Waiting list
 

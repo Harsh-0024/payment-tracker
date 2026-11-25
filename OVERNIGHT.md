@@ -190,3 +190,10 @@ No `.env` here, so the app never reaches the live Supabase project; nothing touc
 - improve/friendly-dates (fd43903): the desktop lists (Payments, Activity, Dashboard, Pay, group expenses) now say "Yesterday", "22 Nov" like the phone ones, in place of "24/11/2026"; due dates read "Due yesterday" / "Due 1 Dec". Checked in the browser at desktop width; lint counts unchanged per file; build clean, no mock values in dist.
 - design/profile-icons (e65c20a): Profile's Settings icon was a spoked circle that read as a sun (right above Dark mode); now a toothed gear (also on the top-right button). The card said "Total Owed ₹450 / You get ₹4,199"; now "You owe ₹450", matching the line under it. Checked on the iPhone; lint 0 → 0; build clean, no mock values in dist.
 - design/profile-icons (3c300f8): Profile's Dark mode row had a chevron like the rows that open pages, and its label flipped to "Light mode". Now it always says "Dark mode" with an on/off switch (role="switch", aria-checked), blue when on. Checked both states on the iPhone; lint 0 → 0; build clean.
+
+## Your avatar on the phone (branch `design/you-avatar`, from origin/main)
+
+- On the phone, My Groups, a group's page and an expense drew you as a "Y" beside each friend,
+  while Home and Profile show your own initial ("D" for Demo). They now use your initial too.
+  Checked on the iPhone with the local mock. Lint has no new problems in the changed files
+  (main's existing ones are fixed on `improve/lint-cleanup`); build passes.

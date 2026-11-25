@@ -145,6 +145,11 @@ No `.env` here, so the app never reaches the live Supabase project; nothing touc
   be tapped there. On the phone it now sits 100 px up, above the bottom bar; the desktop keeps
   20 px. Checked on iPhone 18 Pro with the mock; ChatBot.jsx lints clean, build passes, no mock
   in the build.
+- Activity's search box began with a 🔍 emoji (the only emoji icon on the phone screens) and its
+  hint, "Search friend, amount, note, date, UPI ID, status...", was cut off at "UPI ID, st". Now
+  the same line search icon as My Groups, and the hint "Search people, amounts, notes…"; the full
+  list of what it searches is the field's spoken label. GlobalSearch.jsx lint unchanged (the one
+  setState-in-effect error at line 34 was already on main); build passes.
 
 ## Waiting list
 

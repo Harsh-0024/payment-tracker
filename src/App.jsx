@@ -396,6 +396,11 @@ function Shell({ session }) {
     return () => window.removeEventListener("focus", onFocus);
   }, [session.access_token]);
 
+  // A new page (and the first one after signing in) starts at the top, not at the last page's scroll.
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [page]);
+
   const requests = connections.filter((c) => c.status === "pending" && c.addressee === myId).length;
   const owes = entries.filter((e) => e.status !== "Settled" && e.paid_by === "friend").slice(0, 3);
   const meta = [null, ...(TITLES[page] || TITLES.Dashboard)];

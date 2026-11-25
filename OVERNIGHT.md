@@ -67,6 +67,12 @@ No `.env` here, so the app never reaches the live Supabase project; nothing touc
   (still coloured), like the friend page's own "You're owed / You owe". Checked on the iPhone 18
   Pro with the dev mock: all three rows fit on one line. Lint shows nothing new in the file; build passes.
 
+## fix/phone-layout (25 Nov)
+- Checked Home, Activity and Profile on the iPhone simulator using the mock (`npm run dev:mock`).
+- Activity: the payment date field ran past the card's right edge (iOS Safari gives date inputs a fixed width). Date fields on phones now fill their box, with the date left-aligned and centred like the other fields.
+- The chat bubble sat on top of the Profile tab. On phones it now floats just above the tab bar.
+- eslint clean on the changed file; build passes; mock not in dist.
+
 ## Waiting list
 
 - **Seeing the app run**: now possible with `npm run dev:mock` (branch `improve/dev-mock`); the

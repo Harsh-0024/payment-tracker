@@ -120,7 +120,10 @@ export default function GlobalSearch({ entries = [], friends = [] }) {
           value={q}
           onChange={(e) => setQ(e.target.value)}
           onFocus={loadPayments}
-          placeholder="Search friend, amount, note, date, UPI ID, status..."
+          // Short enough to show whole on a phone (the long list was cut at "st"); UPI IDs and
+          // status still match, and the field's name lists them for a screen reader.
+          placeholder="Search friend, amount, note or date"
+          aria-label="Search payments by friend, amount, note, date, UPI ID or status"
           style={{
             flex: 1, border: "1px solid #cbd5e1", borderRadius: 999, padding: "10px 14px",
             fontSize: 14, outline: "none", background: "#fff", color: "#0f172a", minWidth: 0,

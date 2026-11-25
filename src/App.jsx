@@ -485,6 +485,7 @@ function Shell({ session }) {
             <MobileHome entries={entries} go={setPage} />
           ) : page === "Groups" ? (
             <MobileGroups
+              me={myName}
               friends={friends}
               entries={entries}
               go={setPage}

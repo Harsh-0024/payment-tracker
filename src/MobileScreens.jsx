@@ -27,12 +27,13 @@ function Ic({ n, s = 22 }) {
       strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">{IC[n]}</svg>
   );
 }
-function Avs({ names, s = 40 }) {
+/* "You" is drawn with your own initial (as on Home and Profile), not a "Y". */
+function Avs({ names, s = 40, me }) {
   return (
     <span className="ms-avs">
       {names.map((n, i) => (
         <i key={i} style={{ width: s, height: s, fontSize: s * 0.4, marginLeft: i ? -s * 0.28 : 0, background: n === "You" ? "#12327f" : hue(n) }}>
-          {ini(n)}
+          {ini(n === "You" && me ? me : n)}
         </i>
       ))}
     </span>
@@ -41,7 +42,7 @@ function Avs({ names, s = 40 }) {
 const dt = (x) => new Date(x).toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" });
 const sumA = (l) => l.reduce((s, e) => s + Number(e.amount), 0);
 
-export function MobileGroups({ friends, entries, go, manage, reload, setError }) {
+export function MobileGroups({ friends, entries, go, manage, reload, setError, me }) {
   const [view, setView] = useState({ t: "list" });
   const [q, setQ] = useState("");
   const [pill, setPill] = useState("All");
@@ -96,7 +97,7 @@ export function MobileGroups({ friends, entries, go, manage, reload, setError })
           <b>{R(e.amount)}</b>
         </div>
         <div className="ms-paid">
-          <Avs names={[mine ? "You" : e.friend]} s={44} />
+          <Avs names={[mine ? "You" : e.friend]} s={44} me={me} />
           <div><small>Paid</small><b>{mine ? "You" : e.friend}</b></div>
           <div className="r">
             <small>{settled ? "Settled" : mine ? `${e.friend} owes` : "You owe"}</small>
@@ -140,7 +141,7 @@ export function MobileGroups({ friends, entries, go, manage, reload, setError })
           {menu && <div className="ms-menu"><button type="button" onClick={remove}>Remove friend</button></div>}
         </div>
         <div className="ms-sheet">
-          <div className="ms-gd-av"><Avs names={[f.name, "You"]} s={52} /></div>
+          <div className="ms-gd-av"><Avs names={[f.name, "You"]} s={52} me={me} /></div>
           <h1>{f.name}</h1>
           <p className="ms-gd-sub">{f.linked_user_id ? "Linked friend" : "Friend"} • {open.length ? "Active" : "Settled"}</p>
           <p className={"ms-gd-net " + netCls(net)}>{netText(net)}</p>
@@ -228,7 +229,7 @@ export function MobileGroups({ friends, entries, go, manage, reload, setError })
         const { list, net } = info(f);
         return (
           <button type="button" className="ms-g" key={f.id} onClick={() => { setTab("Expenses"); setView({ t: "group", id: f.id }); }}>
-            <Avs names={[f.name, "You"]} s={40} />
+            <Avs names={[f.name, "You"]} s={40} me={me} />
             <span className="ms-g-mid">
               <b>{f.name}</b>
               <small>{list.length} expense{list.length === 1 ? "" : "s"} • <em className={netCls(net)}>{net === 0 ? "Settled" : R(Math.abs(net))}</em></small>

@@ -382,11 +382,12 @@ function GroupDetail({
       setError(`${n} has expenses in this group, so they can't be removed.`);
       return;
     }
-    await supabase
+    const { error } = await supabase
       .from("friend_group_members")
       .delete()
       .eq("group_id", group.id)
       .eq("name", n);
+    if (error) { setError(error.message); return; }
     reload();
   }
 

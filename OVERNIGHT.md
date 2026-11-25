@@ -9,6 +9,9 @@ committed to `main` itself. No `.env` here, so nothing touches live data.
   in one tap. The phone screen already asks "Remove <name>?". The desktop now asks the same and
   shows the error if the delete fails, where it used to fail silently. `npm run build` passes. `npm run lint`
   gives the same 28 problems as `main`, none new.
+- **Removing a group member shows the error if it fails.** It used to drop the error and reload
+  as if it had worked. No question is asked: a member with expenses can't be removed anyway, and one
+  without is quick to add back. Every other delete in the app already checks its error.
 
 ## Waiting list
 

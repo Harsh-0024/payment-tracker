@@ -171,3 +171,9 @@ No `.env` here, so the app never reaches the live Supabase project; nothing touc
   owes whom, and with Home showing a ₹3,749 balance it read as money owed to you. It now says
   "You owe ₹450", matching "You get" under it. Lint clean for the file (as on main), build passes,
   no mock values in `dist/`; checked on the iPhone 18 Pro simulator.
+
+## Analytics chart (branch `design/analytics-chart`)
+- Slices in clearly different hues (Card and UPI were two blues side by side), sorted biggest first.
+- Legend shows each amount ("Card ₹2,999"), so a phone user gets figures without tapping.
+- Pie has room above and below: the top % label was cut by the buttons and the bottom one ran into the legend.
+- Checked on the iPhone 18 Pro simulator; lint unchanged vs main, build ok, no mock values in dist.

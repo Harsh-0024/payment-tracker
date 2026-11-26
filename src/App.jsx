@@ -280,6 +280,7 @@ function Bell({ requests, owes, go }) {
       </button>
       {open && (
         <div className="sp-pop">
+          <div className="hd">Notifications</div>
           {!has && <div className="none">You are all caught up.</div>}
           {requests > 0 && (
             <button type="button" onClick={() => pick("Groups")}>
@@ -290,7 +291,7 @@ function Bell({ requests, owes, go }) {
           {owes.map((e) => (
             <button key={e.id} type="button" onClick={() => pick("Settlements")}>
               You owe {e.friend} {rupee(e.amount)}
-              <small>{e.note || "Pending payment"}</small>
+              <small>{e.note || "Pending payment"} · Tap to settle</small>
             </button>
           ))}
         </div>

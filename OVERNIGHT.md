@@ -380,3 +380,9 @@ No `.env` here, so the app never reaches the live Supabase project; nothing touc
   Results still open inside the same card.
 - Checked on the iPhone 18 Pro simulator (field look) and in the browser (typed "Aarav": friend,
   entries and filter chips show in the card). Lint 11, build OK, `git diff --check` clean.
+
+## improve/bell-popup (26 Nov)
+- The bell's popup was a bare white box: no title, and nothing said the rows could be tapped.
+  It now has a "Notifications" heading (the existing .hd style) and each "You owe" row ends with
+  "· Tap to settle". Tapping still opens Settlements, checked on the iPhone simulator.
+- Lint 11 problems (unchanged), build ok, no .env.

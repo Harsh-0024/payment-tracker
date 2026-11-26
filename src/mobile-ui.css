@@ -62,7 +62,13 @@ html[data-theme="dark"] .mh-row-ic { color: #9db8ff; }
 .chat-fab { bottom: 20px; }
 .mb-app .chat-fab { bottom: calc(100px + env(safe-area-inset-bottom)); }
 
+/* The chat panel opens above the bottom bar too, and fits short screens. */
+.mb-app .cb-panel { bottom: calc(92px + env(safe-area-inset-bottom)) !important; height: min(540px, calc(100dvh - 150px - env(safe-area-inset-top) - env(safe-area-inset-bottom))) !important; }
+
 /* iPhone date fields have a wide built-in size and ran past their card's edge. */
 .mb-app .row2 > * { min-width: 0; }
 .mb-app input[type="date"] { -webkit-appearance: none; appearance: none; display: block; width: 100%; min-width: 0; max-width: 100%; text-align: left; line-height: 52px; }
-.mb-app input[type="date"]::-webkit-date-and-time-value { text-align: left; }
+.mb-app input[type="date"]::-webkit-date-and-time-value { text-align: left; margin: 0; }
+
+/* Paired fields stack on a phone; drop the side-by-side gap so the pair spaces like other fields. */
+.mb-app .row2 { row-gap: 0; }

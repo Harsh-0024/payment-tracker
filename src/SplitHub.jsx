@@ -8,6 +8,7 @@ export default function SplitHub(props) {
   return (
     <>
       <div
+        className="hub-head"
         style={{
           display: "flex",
           justifyContent: "space-between",
@@ -23,7 +24,7 @@ export default function SplitHub(props) {
           <button type="button" className={tab === "quick" ? "on" : ""}
             onClick={() => setTab("quick")}>Quick split</button>
         </div>
-        <button type="button" className="ghost" onClick={props.goFriends}>
+        <button type="button" className="ghost hub-add" onClick={props.goFriends}>
           + Add friend
         </button>
       </div>

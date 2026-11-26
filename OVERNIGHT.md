@@ -386,3 +386,9 @@ No `.env` here, so the app never reaches the live Supabase project; nothing touc
   It now has a "Notifications" heading (the existing .hd style) and each "You owe" row ends with
   "· Tap to settle". Tapping still opens Settlements, checked on the iPhone simulator.
 - Lint 11 problems (unchanged), build ok, no .env.
+
+## design/groups-search (26 Nov)
+- Groups' "Search groups..." box was filled with the page's own tint, so on the phone it all but
+  vanished above the white cards. It is now a white card with a hairline and soft shadow, like the
+  rows below it, and gets a blue ring while you type.
+- Checked on the iPhone simulator (light). Lint 11 (unchanged), build ok, no .env.

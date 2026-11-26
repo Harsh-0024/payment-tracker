@@ -9,7 +9,9 @@
 .ms-bar h2 { margin: 0; font-size: 19px; font-weight: 800; }
 .ms-plus { width: 46px; height: 46px; border-radius: 50%; border: 0; display: grid; place-items: center; background: linear-gradient(135deg, #1d62f0, #3b82ff); color: #fff; box-shadow: 0 8px 18px rgba(29, 98, 240, 0.4); cursor: pointer; padding: 0; }
 
-.ms-search { display: flex; align-items: center; gap: 10px; height: 52px; padding: 0 16px; margin: 0 0 14px; border-radius: 16px; background: var(--tile, #eef3ff); color: var(--mut, #5b6b8f); }
+.ms-search { display: flex; align-items: center; gap: 10px; height: 52px; padding: 0 16px; margin: 0 0 14px; border-radius: 16px; background: var(--card, #fff); border: 1px solid var(--cardline, #e9eefb); box-shadow: 0 2px 12px rgba(0, 41, 112, 0.06); color: var(--mut, #5b6b8f); transition: border-color 0.15s, box-shadow 0.15s; }
+/* The search box was the page's own tint, so it all but vanished; now it is a card like the rows, with a ring while typing. */
+.ms-search:focus-within { border-color: var(--pri, #1f5fff); box-shadow: 0 0 0 3px rgba(31, 95, 255, 0.15); }
 .ms-search input { flex: 1; min-width: 0; height: 100%; border: 0 !important; outline: none; background: transparent !important; box-shadow: none !important; font-size: 16px; color: var(--ink, #0f1f4a) !important; font-family: inherit; padding: 0; margin: 0; }
 .ms-pills { display: flex; gap: 10px; margin-bottom: 16px; }
 .ms-pills button { flex: 1; height: 40px; border: 0; border-radius: 999px; background: var(--tile, #eef3ff); color: var(--mut, #5b6b8f); font-size: 14px; font-weight: 700; cursor: pointer; box-shadow: none; }

@@ -36,3 +36,21 @@ to `main` itself, and pushed. No `.env` here, so nothing reaches the live Supaba
 
 ## Waiting list
 - Delete account (src/DeleteAccount.jsx) removes the profile photo and QR image before it calls `delete_my_account`. If that call fails, the account stays but its photo and QR are already gone. Moving the removal after the call is only safe if storage still accepts the signed-out user's token or the SQL function cleans storage itself; that function's SQL is not in the repo, so this waits for a look at the database side.
+# Overnight notes: payment-tracker (`fix/friend-delete-confirm`)
+
+Part of the improvement run (with Liftbook and Muhurta). This branch is from `main` and never
+committed to `main` itself. No `.env` here, so nothing touches live data.
+
+### Branch `fix/friend-delete-confirm` (26 Nov)
+
+- **The desktop Friends list asks before removing a friend.** Its Delete button removed the friend
+  in one tap. The phone screen already asks "Remove <name>?". The desktop now asks the same and
+  shows the error if the delete fails, where it used to fail silently. `npm run build` passes. `npm run lint`
+  gives the same 28 problems as `main`, none new.
+- **Removing a group member shows the error if it fails.** It used to drop the error and reload
+  as if it had worked. No question is asked: a member with expenses can't be removed anyway, and one
+  without is quick to add back. Every other delete in the app already checks its error.
+
+## Waiting list
+
+- Nothing blocked.

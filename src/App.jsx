@@ -671,8 +671,10 @@ function Friends({ friends, connections, profiles, entries, myId, reload, setErr
     reload();
   }
 
-  async function remove(id) {
-    const { error } = await supabase.from("friends").delete().eq("id", id);
+  async function remove(f) {
+    // Ask first, as the phone screen does: one stray tap shouldn't drop a friend.
+    if (!window.confirm(`Remove ${f.name}?`)) return;
+    const { error } = await supabase.from("friends").delete().eq("id", f.id);
     if (error) {
       setError("Couldn't remove this friend: " + error.message);
       return;
@@ -822,7 +824,7 @@ function Friends({ friends, connections, profiles, entries, myId, reload, setErr
             <div className="entry-meta">{f.phone || "No WhatsApp number"}</div>
           </div>
           <button className="del"
-            onClick={(e) => { e.stopPropagation(); remove(f.id); }}>
+            onClick={(e) => { e.stopPropagation(); remove(f); }}>
             Delete
           </button>
         </div>

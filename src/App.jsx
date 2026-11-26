@@ -672,7 +672,12 @@ function Friends({ friends, connections, profiles, entries, myId, reload, setErr
   }
 
   async function remove(id) {
-    await supabase.from("friends").delete().eq("id", id);
+    const { error } = await supabase.from("friends").delete().eq("id", id);
+    if (error) {
+      setError("Couldn't remove this friend: " + error.message);
+      return;
+    }
+    setError("");
     reload();
   }
 

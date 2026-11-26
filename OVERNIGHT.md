@@ -37,6 +37,7 @@ to `main` itself, and pushed. No `.env` here, so nothing reaches the live Supaba
 ## Waiting list
 - Delete account (src/DeleteAccount.jsx) removes the profile photo and QR image before it calls `delete_my_account`. If that call fails, the account stays but its photo and QR are already gone. Moving the removal after the call is only safe if storage still accepts the signed-out user's token or the SQL function cleans storage itself; that function's SQL is not in the repo, so this waits for a look at the database side.
 # Overnight notes: payment-tracker (`fix/friend-delete-confirm`)
+# Overnight notes: payment-tracker (`fix/pay-warnings`)
 
 Part of the improvement run (with Liftbook and Muhurta). This branch is from `main` and never
 committed to `main` itself. No `.env` here, so nothing touches live data.
@@ -50,6 +51,21 @@ committed to `main` itself. No `.env` here, so nothing touches live data.
 - **Removing a group member shows the error if it fails.** It used to drop the error and reload
   as if it had worked. No question is asked: a member with expenses can't be removed anyway, and one
   without is quick to add back. Every other delete in the app already checks its error.
+### Branch `fix/pay-warnings` (26 Nov)
+
+- **"Payment saved, but the entry could not be added" now shows.** After a UPI payment, the Pay page
+  set that message when recording it failed, then cleared it a few lines later with `setError("")`,
+  so nobody ever saw it. The message is now kept and shown once at the end.
+- **Marking the paid entries Settled checks its error too.** Paying a friend for existing entries
+  marks them Settled; if that failed, the entries stayed Pending with no word. It now says
+  "Payment saved, but its entries could not be marked settled".
+- **Cancelling a payment shows the error if it fails,** instead of reloading as if it had worked.
+- `npm run build` passes; `npm run lint` gives the same 28 problems as `main`, none new. Not run
+  against a database: no `.env`, by design.
+
+- After a payment, linking its new entry back to it (`entry_ids`) also ignored failure; without the link, the payment's entry isn't treated as waiting for confirmation. It now joins the other warnings shown after saving. Lint 28, build OK.
+
+- PayPage's last unchecked writes now report failures: re-saving an open payment's amount stops with the error instead of opening the UPI app on stale data; a failed UPI-ID save to a friend shows a gentle note; Cancel stays open with the error instead of closing as if it worked. Lint 28 (same as main), build OK.
 
 ## Waiting list
 

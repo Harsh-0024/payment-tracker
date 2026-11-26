@@ -401,9 +401,10 @@ export function MobileProfile({ session, name, entries, requests, owes, go, sett
         <small>{email}</small>
       </div>
       <button type="button" className="ms-owed" onClick={() => go("Settlements")}>
-        <span>You owe</span>
-        <b>{R(youOwe)}</b>
-        <em>You get {R(youGet)}</em>
+        {/* The same summary as Home's card: it led with "You owe ₹120" while ₹1,900 was owed to you. */}
+        <span>Total Balance</span>
+        <b>{youGet - youOwe < 0 ? "-" : ""}{R(Math.abs(youGet - youOwe))}</b>
+        <em>You get {R(youGet)} · You owe {R(youOwe)}</em>
         <i><Ic n="arrow" s={18} /></i>
       </button>
       <div className="ms-list">

@@ -392,3 +392,10 @@ No `.env` here, so the app never reaches the live Supabase project; nothing touc
   vanished above the white cards. It is now a white card with a hairline and soft shadow, like the
   rows below it, and gets a blue ring while you type.
 - Checked on the iPhone simulator (light). Lint 11 (unchanged), build ok, no .env.
+
+## improve/profile-balance (26 Nov)
+- The Profile tab's blue card led with "You owe ₹120" in large type, with "You get ₹1,900.50"
+  small below, while Home's card shows the net. The same summary now reads the same on both:
+  "Total Balance ₹1,780.50" and "You get ₹1,900.50 · You owe ₹120" (a minus sign when you owe
+  more than you get). It still opens Settlements.
+- Checked on the iPhone simulator. Lint 11 (unchanged), build ok, no .env.

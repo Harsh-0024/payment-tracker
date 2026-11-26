@@ -466,3 +466,13 @@ No `.env` here, so the app never reaches the live Supabase project; nothing touc
 - Checked on the iPhone: the prompt showed the balance; Cancel left Aarav in place.
 - Not changed: the desktop Friends list's remove (App.jsx) still asks the short question.
 - Checks: diff --check, marker grep, lint 11 problems (baseline 28), build OK.
+
+## improve/chart-opens-useful (27 Nov)
+
+- Profile → Analytics → Payment breakdown opened on "By payment mode", which with no modes set is
+  only a note ("… "By friend" works already."). It now opens on "By friend" until some payment
+  has a mode, and a tab you pick stays picked. The note no longer points at the other tab, and
+  reads "Your payments don't say how they were paid yet. …".
+- Checked on the iPhone: opens on By friend with the pie (Meera 62%, Aarav 24%, Kabir 14%);
+  tapping By payment mode shows the new note.
+- Checks: diff --check, marker grep, lint 11 problems (baseline 28), build OK.

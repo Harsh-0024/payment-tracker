@@ -7,7 +7,10 @@ import { rupee } from "./people";
 const COLORS = ["#4a6cf7", "#f8a53a", "#14b8a6", "#ef6a8a", "#8b5cf6", "#3ccf6e", "#94a3b8"];
 
 export default function SpendingChart({ entries }) {
-  const [by, setBy] = useState("mode");
+  // Open on the view that has something to show: with no payment modes yet, "By payment mode" is
+  // only a note, so start on "By friend". A tab you pick stays picked.
+  const [picked, setBy] = useState(null);
+  const by = picked ?? (entries.some((e) => e.mode) ? "mode" : "friend");
 
   // Entries with no payment mode (added from a group or the quick add) were filed under the key
   // "undefined", which the legend printed as is.
@@ -36,8 +39,8 @@ export default function SpendingChart({ entries }) {
         <p className="sub" style={{ marginTop: 16, display: "block" }}>Add payments to see the chart.</p>
       ) : noModes ? (
         <p className="sub" style={{ marginTop: 16, display: "block" }}>
-          None of your payments says how it was paid yet. Choose UPI, Cash or Card under "Paid
-          via" when you add or edit one, and this chart splits them up. "By friend" works already.
+          Your payments don't say how they were paid yet. Choose UPI, Cash or Card under "Paid
+          via" when you add or edit one, and this chart splits them up.
         </p>
       ) : (
         <div style={{ width: "100%", height: 320, marginTop: 8 }}>

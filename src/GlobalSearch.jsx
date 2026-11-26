@@ -115,12 +115,15 @@ export default function GlobalSearch({ entries = [], friends = [] }) {
       }}
     >
       <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
-        <span style={{ fontSize: 18 }}>🔍</span>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#64748b" strokeWidth="2" strokeLinecap="round" aria-hidden="true" style={{ flex: "none", marginLeft: 4 }}>
+          <circle cx="11" cy="11" r="6.5" /><path d="M16 16l4.5 4.5" />
+        </svg>
         <input
           value={q}
           onChange={(e) => setQ(e.target.value)}
           onFocus={loadPayments}
-          placeholder="Search friend, amount, note, date, UPI ID, status..."
+          placeholder="Search people, amounts, notes…"
+          aria-label="Search by friend, amount, note, date, UPI ID or status"
           style={{
             flex: 1, border: "1px solid #cbd5e1", borderRadius: 999, padding: "10px 14px",
             fontSize: 14, outline: "none", background: "#fff", color: "#0f172a", minWidth: 0,

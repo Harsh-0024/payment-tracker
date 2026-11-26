@@ -57,3 +57,12 @@ html[data-theme="dark"] .mh-row-ic { color: #9db8ff; }
 .mh-row .pos { color: #16a34a; }
 .mh-row .neg { color: #e11d48; }
 .mh-row .mut { color: var(--mut, #5b6b8f); }
+
+/* The chat button sits above the bottom bar on the phone, not over the Profile tab. */
+.chat-fab { bottom: 20px; }
+.mb-app .chat-fab { bottom: calc(100px + env(safe-area-inset-bottom)); }
+
+/* iPhone date fields have a wide built-in size and ran past their card's edge. */
+.mb-app .row2 > * { min-width: 0; }
+.mb-app input[type="date"] { -webkit-appearance: none; appearance: none; display: block; width: 100%; min-width: 0; max-width: 100%; text-align: left; line-height: 52px; }
+.mb-app input[type="date"]::-webkit-date-and-time-value { text-align: left; }

@@ -566,13 +566,19 @@ export default function PayPage({ entries, friends, reload, setError }) {
     const meta = getMeta(p);
     const { data: u } = await supabase.auth.getUser();
     const today = new Date().toISOString().slice(0, 10);
+    // The payment is saved; what follows only records it. A step that fails is said once at the
+    // end: setError("") below had wiped these messages before anyone saw them.
+    let warn = "";
 
     if (p.entry_ids && p.entry_ids.length > 0) {
       // Purani entries settle karo
       const mine = entries
         .filter((e) => p.entry_ids.includes(e.id) && !e.shared)
         .map((e) => e.id);
-      if (mine.length) await supabase.from("entries").update({ status: "Settled" }).in("id", mine);
+      if (mine.length) {
+        const { error: setErr } = await supabase.from("entries").update({ status: "Settled" }).in("id", mine);
+        if (setErr) warn = "Payment saved, but its entries could not be marked settled: " + setErr.message;
+      }
     } else if (meta && meta.merchant) {
       // Merchant ko pay kiya. Dost ka hissa ho to uski entry banao (dost aapko dega)
       if (meta.splitFriend && meta.splitAmount > 0) {
@@ -589,7 +595,7 @@ export default function PayPage({ entries, friends, reload, setError }) {
           .select()
           .single();
         if (entErr) {
-          setError("Payment saved, but friend's entry could not be added: " + entErr.message);
+          warn = "Payment saved, but friend's entry could not be added: " + entErr.message;
         } else {
           await supabase.from("app_payments").update({ entry_ids: [row.id] }).eq("id", p.id);
         }
@@ -610,13 +616,13 @@ export default function PayPage({ entries, friends, reload, setError }) {
         .select()
         .single();
       if (entErr) {
-        setError("Payment saved, but entry could not be added: " + entErr.message);
+        warn = "Payment saved, but entry could not be added: " + entErr.message;
       } else {
         await supabase.from("app_payments").update({ entry_ids: [row.id] }).eq("id", p.id);
       }
     }
 
-    setError("");
+    setError(warn);
     setNotice("Payment saved in your history.");
     await reload();
     await load();
@@ -624,7 +630,8 @@ export default function PayPage({ entries, friends, reload, setError }) {
   }
 
   async function cancelPayment(p) {
-    await supabase.from("app_payments").update({ status: "cancelled" }).eq("id", p.id);
+    const { error } = await supabase.from("app_payments").update({ status: "cancelled" }).eq("id", p.id);
+    if (error) { setError(error.message); return; }
     load();
   }
 

@@ -1,7 +1,7 @@
 import { useState, useEffect, useMemo } from "react";
 import { supabase } from "./supabaseClient";
 
-import { rupee } from "./people";
+import { rupee, hue, ini } from "./people";
 const fmt = (d) =>
   d ? new Date(d).toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" }) : "";
 const iso = (d) => (d ? String(d).slice(0, 10) : "");
@@ -179,9 +179,21 @@ export default function GlobalSearch({ entries = [], friends = [] }) {
                 <div style={head}>Friends</div>
                 {results.friends.slice(0, LIMIT).map((f) => (
                   <div style={row} key={"f" + f.id}>
-                    <div>
-                      <div style={title}>👤 {f.name}</div>
-                      <div style={sub}>{f.upi_id || "No UPI ID saved"}</div>
+                    <div style={{ display: "flex", alignItems: "center", gap: 10, minWidth: 0 }}>
+                      {/* The coloured initial every other friend list uses, not a grey emoji. */}
+                      <span
+                        aria-hidden="true"
+                        style={{
+                          flex: "none", width: 34, height: 34, borderRadius: "50%", background: hue(f.name),
+                          color: "#fff", fontWeight: 800, fontSize: 15, display: "grid", placeItems: "center",
+                        }}
+                      >
+                        {ini(f.name)}
+                      </span>
+                      <div style={{ minWidth: 0 }}>
+                        <div style={title}>{f.name}</div>
+                        <div style={sub}>{f.upi_id || "No UPI ID saved"}</div>
+                      </div>
                     </div>
                     <div style={{ ...sub, fontWeight: 700, textAlign: "right" }}>{net(f.name)}</div>
                   </div>

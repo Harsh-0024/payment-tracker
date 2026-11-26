@@ -21,12 +21,15 @@ export default function GlobalSearch({ entries = [], friends = [] }) {
   const [q, setQ] = useState("");
   const [kind, setKind] = useState("all");
   const [payments, setPayments] = useState([]);
+  const [paymentsFailed, setPaymentsFailed] = useState(false);
 
   async function loadPayments() {
-    const { data } = await supabase
+    const { data, error } = await supabase
       .from("app_payments")
       .select("*")
       .order("created_at", { ascending: false });
+    // Without this, a failed load looked like "no UPI payment matches".
+    setPaymentsFailed(!!error);
     if (data) setPayments(data);
   }
 
@@ -159,6 +162,12 @@ export default function GlobalSearch({ entries = [], friends = [] }) {
               </button>
             ))}
           </div>
+
+          {paymentsFailed && (
+            <div style={{ ...sub, color: "#b45309", padding: "8px 0 0" }}>
+              UPI payments couldn't be loaded, so they aren't in these results.
+            </div>
+          )}
 
           <div style={{ maxHeight: 360, overflowY: "auto" }}>
             {total === 0 && <div style={{ ...sub, padding: "14px 0" }}>Kuch nahi mila. Doosra shabd try karo.</div>}

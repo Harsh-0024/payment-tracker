@@ -321,3 +321,30 @@ No `.env` here, so the app never reaches the live Supabase project; nothing touc
   Groups / Quick split tabs, looking like a stray third tab. Slimmer padding on phones keeps all
   three on one row with Add friend on the right, as on a computer. Checked on the iPhone; SplitHub.jsx
   lints clean, overall lint unchanged (21 errors, as on main), build passes.
+
+## All the run's branches merged into improve/run-base (26 Nov)
+
+- Merged 24 topic branches plus `improve/lint-cleanup`. Kept: design/analytics-chart,
+  home-card, profile-icons, sign-in, text-wrap, you-avatar; fix/activity-layout, phone-activity,
+  phone-layout, phone-overlaps, delete-errors, friend-delete-confirm, pay-warnings, profile-load,
+  reminder-net, search-errors, settle-toggle-error; improve/balance-words, bundle-split,
+  empty-states, friendly-dates, settle-up, sign-in-autofill, phone-polish, lint-cleanup.
+- Not kept: `improve/dev-mock` (the older mock that changed src/supabaseClient.js and added the
+  borrowed src/devMock.js; `feature/demo-mock` replaces it and leaves both files alone).
+- Conflicts were mostly the same fix made on two or three branches (chat button above the tab
+  bar, iPhone date fields, dark-mode switch, search box); the base's version was kept, plus the
+  extras only the other side had (chat panel position, stacked-field gap, margin on the date).
+  Also: the newer pie chart (distinct hues, biggest first, amounts in the legend) now lives in
+  the split-out src/SpendingChart.jsx; "You owe" moved to the top of Pay with friendly dates;
+  removing a friend asks first and gives the clearer error; imports follow lint-cleanup's
+  people.js / theme.js.
+- Checks: lint 11 (down from the 28 baseline), build OK, `git diff --check` clean, no conflict
+  markers. On the iPhone 18 Pro simulator (http://127.0.0.1:5182/, demo mock): Home shows
+  "Yesterday" / "24 Nov", Profile has the gear and the dark-mode switch, Groups shows Goa trip
+  above the friends.
+
+## Next up (seen while checking)
+
+- Profile's card says "You get ₹1,901", Home says "₹1,900.5"; Groups shows Kabir "₹251" for
+  ₹250.5. Pick one rounding rule for money.
+- Goa trip's avatars show "Y" for you; the friend rows show your initial "D".

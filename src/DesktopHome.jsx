@@ -284,7 +284,7 @@ export default function DesktopHome({ entries, friends, name, go }) {
                 <span className="dh-av" style={{ background: hue(e.friend) }}>{ini(mine ? "Y" : e.friend)}</span>
                 <div>
                   <b>{settled ? `${e.friend} settled ${R(e.amount)}` : mine ? `You paid ${R(e.amount)}` : `${e.friend} paid ${R(e.amount)}`}</b>
-                  <small>{e.note || e.mode || "Payment"} • {ago(e)}</small>
+                  <small>{e.note || e.mode || "Payment"} · {ago(e)}</small>
                 </div>
                 <span className={"dh-badge " + (settled || !mine ? "g" : "b")}>
                   <Ic n={settled || !mine ? "up" : "plus"} s={15} />

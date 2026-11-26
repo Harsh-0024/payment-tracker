@@ -419,3 +419,7 @@ No `.env` here, so the app never reaches the live Supabase project; nothing touc
 - Profile → Analytics, "By payment mode": entries with no mode (added from groups or the quick add; all the demo's) were filed under the key "undefined", so the legend read "undefined ₹2,400.50" beside a one-slice 100% pie.
 - src/SpendingChart.jsx: mode-less entries now count as "Mode not set". When none has a mode, the card says so and how to fill it ("Paid via" when adding or editing) instead of drawing the 100% pie. "By friend" is unchanged.
 - Lint 11 problems (unchanged), build OK. Checked on the iPhone (both tabs).
+
+## design/dot-separators
+- Groups (trip and friend rows), a friend's page and its expense rows, the desktop Home list and the Dashboard's spending rows split details with a heavy bullet "•", while Activity, search, Home and the history use a middle dot "·". All six now use "·". The chat bot's "•" stays: there it marks list items.
+- Lint 11 problems (unchanged), build OK. Checked on the iPhone (Groups).

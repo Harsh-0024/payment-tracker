@@ -697,7 +697,8 @@ export default function PayPage({ entries, friends, reload, setError }) {
           <div className="card" key={friend}>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 12, flexWrap: "wrap" }}>
               <h3>{friend}</h3>
-              {payable.length > 0 && (
+              {/* One payment already has its own Pay button; "Pay all" only helps with two or more. */}
+              {payable.length > 1 && (
                 <button className="small" onClick={() => setTarget({ friend, entries: payable })}>
                   Pay all {rupee(total)}
                 </button>

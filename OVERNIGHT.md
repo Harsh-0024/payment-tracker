@@ -428,3 +428,8 @@ No `.env` here, so the app never reaches the live Supabase project; nothing touc
 - Groups list: trip groups said "2 items" while friends said "2 expenses". Settlements live in the same table, so "items" counted them, and the phone's group total added settlement money to what was spent.
 - Phone and desktop now count only expenses and say "expenses"; the phone total leaves settlements out (the query now also fetches `kind`).
 - Checked on the iPhone (Goa trip: 4 people · 2 expenses · ₹10,600). The demo data has no group settlement, so the leave-out path is checked by reading only. Lint 11 problems (baseline 28), build passes.
+
+## improve/pay-all-only-for-several (27 Nov)
+- Settlements → You owe: a friend with one unpaid expense showed "Pay all ₹120" beside the row's own "Pay" for the same ₹120.
+- "Pay all" now shows only when there are two or more payments to that friend.
+- Checked on the iPhone (Aarav, one ₹120 row). Lint 11 problems (baseline 28), build passes.

@@ -9,11 +9,16 @@ const COLORS = ["#4a6cf7", "#f8a53a", "#14b8a6", "#ef6a8a", "#8b5cf6", "#3ccf6e"
 export default function SpendingChart({ entries }) {
   const [by, setBy] = useState("mode");
 
+  // Entries with no payment mode (added from a group or the quick add) were filed under the key
+  // "undefined", which the legend printed as is.
+  const NO_MODE = "Mode not set";
   const totals = {};
   entries.forEach((e) => {
-    const key = by === "mode" ? e.mode : e.friend;
+    const key = by === "mode" ? e.mode || NO_MODE : e.friend || "Unnamed";
     totals[key] = (totals[key] || 0) + Number(e.amount);
   });
+  // Nothing has a mode yet: a single 100% slice says nothing, so say how to fill it in instead.
+  const noModes = by === "mode" && entries.length > 0 && Object.keys(totals).every((k) => k === NO_MODE);
   // Biggest first, so the colours and the legend read in order of size.
   const data = Object.entries(totals).map(([name, value]) => ({ name, value })).sort((a, b) => b.value - a.value);
 
@@ -29,6 +34,11 @@ export default function SpendingChart({ entries }) {
 
       {data.length === 0 ? (
         <p className="sub" style={{ marginTop: 16, display: "block" }}>Add payments to see the chart.</p>
+      ) : noModes ? (
+        <p className="sub" style={{ marginTop: 16, display: "block" }}>
+          None of your payments says how it was paid yet. Choose UPI, Cash or Card under "Paid
+          via" when you add or edit one, and this chart splits them up. "By friend" works already.
+        </p>
       ) : (
         <div style={{ width: "100%", height: 320, marginTop: 8 }}>
           <ResponsiveContainer>

@@ -614,7 +614,8 @@ export default function PayPage({ entries, friends, reload, setError }) {
         if (entErr) {
           warn = "Payment saved, but friend's entry could not be added: " + entErr.message;
         } else {
-          await supabase.from("app_payments").update({ entry_ids: [row.id] }).eq("id", p.id);
+          const { error: linkErr } = await supabase.from("app_payments").update({ entry_ids: [row.id] }).eq("id", p.id);
+          if (linkErr) warn = "Payment saved, but its entry could not be linked to it: " + linkErr.message;
         }
       }
     } else {
@@ -635,7 +636,8 @@ export default function PayPage({ entries, friends, reload, setError }) {
       if (entErr) {
         warn = "Payment saved, but entry could not be added: " + entErr.message;
       } else {
-        await supabase.from("app_payments").update({ entry_ids: [row.id] }).eq("id", p.id);
+        const { error: linkErr } = await supabase.from("app_payments").update({ entry_ids: [row.id] }).eq("id", p.id);
+        if (linkErr) warn = "Payment saved, but its entry could not be linked to it: " + linkErr.message;
       }
     }
 

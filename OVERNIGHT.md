@@ -15,6 +15,8 @@ committed to `main` itself. No `.env` here, so nothing touches live data.
 - `npm run build` passes; `npm run lint` gives the same 28 problems as `main`, none new. Not run
   against a database: no `.env`, by design.
 
+- After a payment, linking its new entry back to it (`entry_ids`) also ignored failure; without the link, the payment's entry isn't treated as waiting for confirmation. It now joins the other warnings shown after saving. Lint 28, build OK.
+
 ## Waiting list
 
 - Nothing blocked.

@@ -7,7 +7,7 @@ import { getUpi, buildMessage, openWhatsApp, shareQR } from "./reminder";
 const APP_URL = "";
 
 const MODES = ["Card", "UPI", "Cash", "Other"];
-const rupee = (n) => "₹" + Number(n).toLocaleString("en-IN");
+import { rupee } from "./people";
 const todayLocal = () => new Date().toLocaleDateString("en-CA");
 const sumAmt = (list) => list.reduce((s, e) => s + Number(e.amount), 0);
 

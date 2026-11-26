@@ -1,7 +1,7 @@
 import { useState, useEffect, useMemo } from "react";
 import { supabase } from "./supabaseClient";
 
-const rupee = (n) => "₹" + Number(n).toLocaleString("en-IN");
+import { rupee } from "./people";
 const fmt = (d) =>
   d ? new Date(d).toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" }) : "";
 const iso = (d) => (d ? String(d).slice(0, 10) : "");

@@ -285,7 +285,7 @@ export function MobileGroups({ friends, entries, go, manage, reload, setError, m
       {trips.groups.length > 0 && tripRows.length === 0 && <p className="ms-sec-note">No trip groups match.</p>}
       {tripRows.map(({ g, names, count, total }) => (
         <button type="button" className="ms-g" key={g.id} onClick={() => setView({ t: "trip", id: g.id })}>
-          <Avs names={["You", ...names].slice(0, 3)} s={34} />
+          <Avs names={["You", ...names].slice(0, 3)} s={34} me={me} />
           <span className="ms-g-mid">
             <b>{g.name}</b>
             <small>{names.length + 1} people • {count} item{count === 1 ? "" : "s"}{count ? ` • ${R(total)}` : ""}</small>

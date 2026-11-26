@@ -3,7 +3,7 @@ import { supabase } from "./supabaseClient";
 import { buildMessage, openWhatsApp } from "./reminder";
 
 const MODES = ["Card", "UPI", "Cash", "Other"];
-const rupee = (n) => "₹" + Number(n).toLocaleString("en-IN");
+import { rupee } from "./people";
 const todayLocal = () => new Date().toLocaleDateString("en-CA");
 
 export default function Split({ entries, friends, reload, setError, goFriends, myName }) {

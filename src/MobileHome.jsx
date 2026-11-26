@@ -1,7 +1,8 @@
 /* Phone home screen (matches the mockup): Total Balance, quick actions, recent activity */
 import { friendlyDate } from "./dates";
 
-const money = (n) => "₹" + Math.abs(Number(n)).toLocaleString("en-IN");
+import { rupee } from "./people";
+const money = (n) => rupee(Math.abs(Number(n)));
 
 const QA_ICONS = {
   split: (<><path d="M6 3h12v18l-3-2-3 2-3-2-3 2z" /><path d="M9 8h6M9 12h6" /></>),

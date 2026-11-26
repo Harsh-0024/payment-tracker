@@ -345,6 +345,15 @@ No `.env` here, so the app never reaches the live Supabase project; nothing touc
 
 ## Next up (seen while checking)
 
-- Profile's card says "You get ₹1,901", Home says "₹1,900.5"; Groups shows Kabir "₹251" for
-  ₹250.5. Pick one rounding rule for money.
-- Goa trip's avatars show "Y" for you; the friend rows show your initial "D".
+- (Done on fix/money-rounding.) Money read ₹1,901 / ₹1,900.5 / ₹251 on different screens.
+- (Done on fix/money-rounding.) Goa trip's avatars showed "Y" for you.
+
+## fix/money-rounding (26 Nov)
+
+- One money rule for every screen, in src/people.js (`rupee`, also exported as `R`): whole rupees
+  stay whole ("₹1,200"); amounts with paise show two digits ("₹250.50"). Before, the phone
+  Groups and Profile screens rounded to whole rupees (₹1,901, ₹251) while Home showed ₹1,900.5.
+  The nine files that each had their own `rupee` now import the shared one.
+- Trip group avatars draw you with your initial ("D"), like the friend rows, not "Y".
+- Checked on the iPhone: Home ₹1,780.50 / You get ₹1,900.50, Groups Kabir ₹250.50, Goa trip "D".
+  Lint 11, build OK, `git diff --check` clean.

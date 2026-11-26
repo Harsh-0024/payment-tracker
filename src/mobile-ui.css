@@ -1,5 +1,6 @@
 /* Phone layout (matches the mockup). Used only when the screen is 900px or narrower. */
-.mb-app { min-height: 100vh; min-height: 100dvh; background: radial-gradient(120% 40% at 50% 0%, #dbe7ff 0%, var(--bg, #f3f6fe) 70%); color: var(--ink, #0f1f4a); box-sizing: border-box; padding: calc(16px + env(safe-area-inset-top)) 16px calc(112px + env(safe-area-inset-bottom)); }
+.mb-app { min-height: 100vh; min-height: 100dvh; background: radial-gradient(120% 40% at 50% 0%, #dbe7ff 0%, var(--bg, #f3f6fe) 70%); color: var(--ink, #0f1f4a); box-sizing: border-box; padding: calc(16px + env(safe-area-inset-top)) 16px calc(176px + env(safe-area-inset-bottom)); }
+/* 176px: the chat bubble (56px, 100px above the safe area) sits over the tab bar; the last row has to scroll clear of it. */
 html[data-theme="dark"] .mb-app { background: radial-gradient(120% 40% at 50% 0%, #11265a 0%, var(--bg, #0a1120) 70%); }
 .mb-app * { box-sizing: border-box; }
 

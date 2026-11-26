@@ -489,3 +489,9 @@ No `.env` here, so the app never reaches the live Supabase project; nothing touc
   ₹300 net, a friend in your favour left out, a settled payment ignored) checked with the same
   logic in Node.
 - Checks: diff --check, marker grep, lint 11 problems (baseline 28), build OK.
+
+## design/list-clears-chat-bubble
+- On the phone, the chat bubble (56px, 100px above the safe area) covered the last row of any list: on Activity
+  the final payment's amount and Delete sat under it with no way to scroll them clear.
+- The phone page's bottom padding goes from 112px to 176px (src/mobile-ui.css .mb-app), so the last row ends
+  above the bubble. Checked on the iPhone at 192.168.29.209:5182, Activity scrolled to the end.

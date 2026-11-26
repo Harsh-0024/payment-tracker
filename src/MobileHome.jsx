@@ -21,7 +21,7 @@ function Ic({ name, size = 24 }) {
   );
 }
 
-export default function MobileHome({ entries, go }) {
+export default function MobileHome({ entries, go, openEntry }) {
   const open = entries.filter((e) => e.status !== "Settled");
   const youGet = open.filter((e) => e.paid_by === "me").reduce((s, e) => s + Number(e.amount), 0);
   const youOwe = open.filter((e) => e.paid_by === "friend").reduce((s, e) => s + Number(e.amount), 0);
@@ -71,7 +71,7 @@ export default function MobileHome({ entries, go }) {
         const mine = e.paid_by === "me";
         const settled = e.status === "Settled";
         return (
-          <div className="mh-row" key={e.id}>
+          <button type="button" className="mh-row" key={e.id} onClick={() => (openEntry ? openEntry(e) : go("Payments"))}>
             {/* The friend's own colour and initial, as on Groups: a list of identical receipts didn't scan. */}
             <span className="mh-row-ic mh-row-av" style={{ background: hue(e.friend) }} aria-hidden="true">{ini(e.friend)}</span>
             <div className="mh-row-mid">
@@ -86,7 +86,7 @@ export default function MobileHome({ entries, go }) {
               </b>
               <small>{settled ? "Settled" : e.friend}</small>
             </div>
-          </div>
+          </button>
         );
       })}
     </div>

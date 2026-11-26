@@ -346,6 +346,7 @@ function Shell({ session }) {
   const myId = session.user.id;
   const myName = nameOfUser(session);
   const [page, setPage] = useState("Dashboard");
+  const [groupsStart, setGroupsStart] = useState(null); // a Groups view to open on arrival
   const [entries, setEntries] = useState([]);
   const [friends, setFriends] = useState([]);
   const [connections, setConnections] = useState([]);
@@ -494,9 +495,20 @@ function Shell({ session }) {
         <main className="sp-content mb-content">
           {error && <p className="error">{error}</p>}
           {home ? (
-            <MobileHome entries={entries} go={setPage} />
+            <MobileHome
+              entries={entries}
+              go={setPage}
+              // A Recent Activity row opens that expense on Groups (its friend's page behind Back).
+              openEntry={(e) => {
+                const f = friends.find((x) => x.name === e.friend);
+                setGroupsStart({ t: "expense", id: e.id, gid: f?.id });
+                setPage("Groups");
+              }}
+            />
           ) : page === "Groups" ? (
             <MobileGroups
+              start={groupsStart}
+              onStarted={() => setGroupsStart(null)}
               me={myName}
               friends={friends}
               myName={myName}

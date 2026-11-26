@@ -45,6 +45,8 @@ html[data-theme="dark"] .mh-qa-ic { color: #9db8ff; }
 .mh-empty { padding: 18px; text-align: center; border-radius: 18px; background: var(--card, #fff); border: 1px dashed var(--cardline, #dfe7fa); color: var(--mut, #5b6b8f); font-size: 14px; }
 
 .mh-row { display: flex; align-items: center; gap: 12px; padding: 12px 4px; border-bottom: 1px solid var(--line, #edf1fa); }
+button.mh-row { width: 100%; border-width: 0 0 1px; border-radius: 0; background: transparent; color: inherit; font: inherit; text-align: left; cursor: pointer; }
+button.mh-row:active { background: var(--tile, #eef3ff); }
 .mh-row:last-child { border-bottom: 0; }
 .mh-row-ic { width: 46px; height: 46px; flex: 0 0 auto; border-radius: 14px; display: grid; place-items: center; background: var(--tile, #eef3ff); color: #12327f; }
 html[data-theme="dark"] .mh-row-ic { color: #9db8ff; }

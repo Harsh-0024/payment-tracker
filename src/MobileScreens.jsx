@@ -308,7 +308,7 @@ export function MobileGroups({ friends, entries, go, manage, reload, setError, m
             <Avs names={[f.name, "You"]} s={40} me={me} />
             <span className="ms-g-mid">
               <b>{f.name}</b>
-              <small>{list.length} expense{list.length === 1 ? "" : "s"} • <em className={netCls(net)}>{net === 0 ? "Settled" : R(Math.abs(net))}</em></small>
+              <small>{list.length} expense{list.length === 1 ? "" : "s"} • <em className={netCls(net)}>{net > 0 ? `owes you ${R(net)}` : net < 0 ? `you owe ${R(-net)}` : "Settled"}</em></small>
             </span>
             <Ic n="chev" s={20} />
           </button>

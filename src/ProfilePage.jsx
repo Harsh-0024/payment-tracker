@@ -66,11 +66,14 @@ export default function ProfilePage({ session, profiles }) {
 
   useEffect(() => {
     (async () => {
-      const { data } = await supabase
+      const { data, error } = await supabase
         .from("profile_details")
         .select("*")
         .eq("user_id", uid)
         .maybeSingle();
+      // A failed load left the form blank (or on this phone's copy) with no word why, and saving
+      // from there would put the QR choice back to "generated".
+      if (error) flash("pay", "Couldn't load your saved payment details: " + error.message + ". Reload before saving here.");
       const d = data || {};
       setUpiId(d.upi_id || localStorage.getItem("upiId") || "");
       setUpiName(d.upi_name || localStorage.getItem("upiName") || "");

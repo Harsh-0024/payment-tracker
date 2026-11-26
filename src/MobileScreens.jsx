@@ -57,8 +57,10 @@ const dt = friendlyDate;
 const fullDt = (x) => new Date(x).toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" });
 const sumA = (l) => l.reduce((s, e) => s + Number(e.amount), 0);
 
-export function MobileGroups({ friends, entries, go, manage, reload, setError, myName, me }) {
-  const [view, setView] = useState({ t: "list" });
+export function MobileGroups({ friends, entries, go, manage, reload, setError, myName, me, start, onStarted }) {
+  // start: a view to open on arrival (Home's Recent Activity opens an expense here); used once.
+  const [view, setView] = useState(start || { t: "list" });
+  useEffect(() => { if (start) onStarted?.(); }, []); // eslint-disable-line react-hooks/exhaustive-deps
   // Trip groups (friend_groups) sit at the top of this tab; friends follow below.
   const [trips, setTrips] = useState({ groups: [], members: [], items: [] });
   const [q, setQ] = useState("");

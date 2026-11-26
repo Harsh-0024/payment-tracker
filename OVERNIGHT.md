@@ -414,3 +414,8 @@ No `.env` here, so the app never reaches the live Supabase project; nothing touc
 ## design/search-avatars
 - Search results listed friends with a grey 👤 emoji, while Home, Groups and the trip lists show each friend as a coloured initial. GlobalSearch now uses the same hue()/ini() avatar (34px circle), with the name and UPI ID beside it.
 - Lint 11 problems (unchanged), build OK. Checked on the iPhone (Activity → search "a": Aarav, Kabir, Meera in purple, pink, blue).
+
+## fix/chart-missing-mode
+- Profile → Analytics, "By payment mode": entries with no mode (added from groups or the quick add; all the demo's) were filed under the key "undefined", so the legend read "undefined ₹2,400.50" beside a one-slice 100% pie.
+- src/SpendingChart.jsx: mode-less entries now count as "Mode not set". When none has a mode, the card says so and how to fill it ("Paid via" when adding or editing) instead of drawing the 100% pie. "By friend" is unchanged.
+- Lint 11 problems (unchanged), build OK. Checked on the iPhone (both tabs).

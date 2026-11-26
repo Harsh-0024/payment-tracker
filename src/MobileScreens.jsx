@@ -186,7 +186,9 @@ export function MobileGroups({ friends, entries, go, manage, reload, setError, m
     const { list, open, net } = info(f);
     const idx = friends.indexOf(f);
     async function remove() {
-      if (!window.confirm(`Remove ${f.name}?`)) return;
+      // With money still open between you, say so first: one tap shouldn't lose track of it.
+      const open = net > 0 ? `${f.name} still owes you ${R(net)}. ` : net < 0 ? `You still owe ${f.name} ${R(-net)}. ` : "";
+      if (!window.confirm(`${open}Remove ${f.name}${open ? " anyway" : ""}?`)) return;
       const { error } = await supabase.from("friends").delete().eq("id", f.id);
       if (error) { setError(error.message); return; }
       setMenu(false);

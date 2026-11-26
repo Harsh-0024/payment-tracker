@@ -165,7 +165,8 @@ export function MobileGroups({ friends, entries, go, manage, reload, setError, m
           </div>
         </div>
         <div className="ms-facts">
-          <div><span>Payment mode</span><b>{e.mode || "-"}</b></div>
+          {/* Shown only when set, like the due date: a lone "-" read like a missing value. */}
+          {e.mode && <div><span>Payment mode</span><b>{e.mode}</b></div>}
           <div><span>Status</span><b>{settled ? "Settled" : "Pending"}</b></div>
           {e.due_date && <div><span>Due date</span><b>{fullDt(e.due_date + "T00:00:00")}</b></div>}
         </div>

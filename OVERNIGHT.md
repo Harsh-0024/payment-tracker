@@ -476,3 +476,16 @@ No `.env` here, so the app never reaches the live Supabase project; nothing touc
 - Checked on the iPhone: opens on By friend with the pie (Meera 62%, Aarav 24%, Kabir 14%);
   tapping By payment mode shows the new note.
 - Checks: diff --check, marker grep, lint 11 problems (baseline 28), build OK.
+
+## fix/notify-only-net-owed (27 Nov)
+
+- The bell (and Profile → Notifications) said "You owe Aarav ₹120 · Tap to settle", though Aarav
+  owes you ₹330 overall (₹450 dinner less his ₹120 auto). It listed every payment a friend made,
+  one by one. It now lists one line per friend you owe overall, with that balance: a single
+  payment of theirs keeps its note ("Chai"); otherwise it says "Overall balance". Settled ones are
+  left out, as before; still at most three.
+- With the demo data nobody is owed by you overall: the bell has no dot and says "You are all
+  caught up." Checked on the iPhone. The other cases (owing one friend ₹80 for Chai, owing another
+  ₹300 net, a friend in your favour left out, a settled payment ignored) checked with the same
+  logic in Node.
+- Checks: diff --check, marker grep, lint 11 problems (baseline 28), build OK.

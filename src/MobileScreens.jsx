@@ -84,7 +84,7 @@ export function MobileGroups({ friends, entries, go, manage, reload, setError, m
     Promise.all([
       supabase.from("friend_groups").select("*").order("created_at", { ascending: false }),
       supabase.from("friend_group_members").select("group_id, name"),
-      supabase.from("friend_group_expenses").select("group_id, amount"),
+      supabase.from("friend_group_expenses").select("group_id, amount, kind"),
     ]).then(([g, m, x]) => {
       if (!live) return;
       const err = g.error || m.error || x.error;
@@ -259,7 +259,8 @@ export function MobileGroups({ friends, entries, go, manage, reload, setError, m
   const tripRows = trips.groups
     .map((g) => {
       const names = trips.members.filter((m) => m.group_id === g.id).map((m) => m.name);
-      const items = trips.items.filter((x) => x.group_id === g.id);
+      // Settlements share the table with expenses; the row counts and totals only what was spent.
+      const items = trips.items.filter((x) => x.group_id === g.id && x.kind !== "settlement");
       return { g, names, count: items.length, total: sumA(items) };
     })
     .filter((r) => r.g.name.toLowerCase().includes(needle) || r.names.some((n) => n.toLowerCase().includes(needle)))
@@ -300,7 +301,7 @@ export function MobileGroups({ friends, entries, go, manage, reload, setError, m
           <Avs names={["You", ...names]} max={3} s={34} me={me} />
           <span className="ms-g-mid">
             <b>{g.name}</b>
-            <small>{names.length + 1} people · {count} item{count === 1 ? "" : "s"}{count ? ` · ${R(total)}` : ""}</small>
+            <small>{names.length + 1} people · {count} expense{count === 1 ? "" : "s"}{count ? ` · ${R(total)}` : ""}</small>
           </span>
           <Ic n="chev" s={20} />
         </button>

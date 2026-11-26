@@ -423,3 +423,8 @@ No `.env` here, so the app never reaches the live Supabase project; nothing touc
 ## design/dot-separators
 - Groups (trip and friend rows), a friend's page and its expense rows, the desktop Home list and the Dashboard's spending rows split details with a heavy bullet "•", while Activity, search, Home and the history use a middle dot "·". All six now use "·". The chat bot's "•" stays: there it marks list items.
 - Lint 11 problems (unchanged), build OK. Checked on the iPhone (Groups).
+
+## fix/group-expense-count (27 Nov)
+- Groups list: trip groups said "2 items" while friends said "2 expenses". Settlements live in the same table, so "items" counted them, and the phone's group total added settlement money to what was spent.
+- Phone and desktop now count only expenses and say "expenses"; the phone total leaves settlements out (the query now also fetches `kind`).
+- Checked on the iPhone (Goa trip: 4 people · 2 expenses · ₹10,600). The demo data has no group settlement, so the leave-out path is checked by reading only. Lint 11 problems (baseline 28), build passes.

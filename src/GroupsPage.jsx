@@ -136,12 +136,13 @@ export default function GroupsPage({ friends, setError, myName, goFriends, start
       ...new Set([ME, ...names, ...items.flatMap((e) => [e.paid_by, ...Object.keys(e.shares)])]),
     ];
     const mine = meKey ? computeBalances(everyone, items)[meKey] || 0 : 0;
+    const spent = items.filter((e) => e.kind !== "settlement").length;
     return (
       <div className="entry row-click" key={g.id} onClick={() => setOpenId(g.id)}>
         <div>
           <div className="entry-name">{g.name}</div>
           <div className="entry-meta">
-            {names.length + 1} people · {items.length} item{items.length === 1 ? "" : "s"}
+            {names.length + 1} people · {spent} expense{spent === 1 ? "" : "s"}
             {g.user_id !== myId ? ` · Shared by ${profileNames[g.user_id] || "a friend"}` : ""}
           </div>
         </div>

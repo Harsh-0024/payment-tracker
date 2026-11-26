@@ -166,6 +166,7 @@ export default function ChatBot({ entries = [], friends = [] }) {
           aria-label="Open chat"
           className="chat-fab"
           onClick={() => setOpen(true)}
+          className="chat-fab"
           style={{
             position: "fixed", right: 20, zIndex: 1000,
             width: 56, height: 56, borderRadius: "50%", border: 0, cursor: "pointer",

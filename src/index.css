@@ -540,3 +540,15 @@ nav { display: flex; flex-direction: column; gap: 6px; flex: 1; }
   }
   body::after { display: none; }
 }
+/* The chat button: bottom right, and on a phone above the bottom tab bar, where it used to sit
+   on the Profile tab. */
+.chat-fab { bottom: 20px; }
+@media (max-width: 900px) { .chat-fab { bottom: calc(104px + env(safe-area-inset-bottom)); } }
+
+/* iOS Safari gives a date box its own width, wider than its card on a phone: keep it to the
+   width of its column like the other fields. */
+input[type="date"] { display: block; width: 100%; min-width: 0; max-width: 100%; box-sizing: border-box; -webkit-appearance: none; appearance: none; }
+/* Without iOS's own look the date sits at the top of the 54px box: centre it, and start it at the
+   left like the text in the other fields. */
+input[type="date"]::-webkit-date-and-time-value { text-align: left; line-height: 52px; }
+.row2 > * { min-width: 0; }

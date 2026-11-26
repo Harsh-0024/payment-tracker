@@ -172,10 +172,14 @@ function MerchantPanel({ scan, friends, setError, onPaid, onClose }) {
 
   async function ensureRow() {
     if (payId) {
-      await supabase
+      const { error: upErr } = await supabase
         .from("app_payments")
         .update({ amount, note: metaString() })
         .eq("id", payId);
+      if (upErr) {
+        setError(upErr.message);
+        return null;
+      }
       return payId;
     }
     const { data, error } = await supabase
@@ -232,7 +236,13 @@ function MerchantPanel({ scan, friends, setError, onPaid, onClose }) {
   }
 
   async function cancel() {
-    if (payId) await supabase.from("app_payments").update({ status: "cancelled" }).eq("id", payId);
+    if (payId) {
+      const { error: cErr } = await supabase.from("app_payments").update({ status: "cancelled" }).eq("id", payId);
+      if (cErr) {
+        setError("Couldn't cancel this payment: " + cErr.message);
+        return;
+      }
+    }
     onClose();
   }
 
@@ -363,7 +373,8 @@ function PayPanel({ target, friends, setError, onPaid, onClose }) {
     }
     setPayId(data.id);
     if (friendRow && !friendRow.linked_user_id && friendRow.upi_id !== upi.trim()) {
-      await supabase.from("friends").update({ upi_id: upi.trim() }).eq("id", friendRow.id);
+      const { error: upiErr } = await supabase.from("friends").update({ upi_id: upi.trim() }).eq("id", friendRow.id);
+      if (upiErr) setError("Couldn't save this UPI ID to the friend: " + upiErr.message);
     }
     return data.id;
   }
@@ -408,7 +419,13 @@ function PayPanel({ target, friends, setError, onPaid, onClose }) {
   }
 
   async function cancel() {
-    if (payId) await supabase.from("app_payments").update({ status: "cancelled" }).eq("id", payId);
+    if (payId) {
+      const { error: cErr } = await supabase.from("app_payments").update({ status: "cancelled" }).eq("id", payId);
+      if (cErr) {
+        setError("Couldn't cancel this payment: " + cErr.message);
+        return;
+      }
+    }
     onClose();
   }
 

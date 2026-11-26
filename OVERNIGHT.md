@@ -18,3 +18,4 @@ committed to `main` itself. No `.env` here, so nothing touches live data.
 ## Waiting list
 
 - Nothing blocked.
+- PayPage's last unchecked writes now report failures: re-saving an open payment's amount stops with the error instead of opening the UPI app on stale data; a failed UPI-ID save to a friend shows a gentle note; Cancel stays open with the error instead of closing as if it worked. Lint 28 (same as main), build OK.

@@ -443,3 +443,8 @@ No `.env` here, so the app never reaches the live Supabase project; nothing touc
 - Groups said "Aarav · owes you ₹330" (the net), while Settlements → You owe listed only "₹120 to Aarav", with no sign that Aarav owes you ₹450 for dinner. Paying the ₹120 from there hid that Aarav was the one behind.
 - A friend's card on Settlements now adds a line when they also owe you: "Aarav also owes you ₹450, so overall they owe you ₹330." (or "you owe ₹N" / "you're even"). The per-expense Pay buttons are unchanged.
 - Checked on the iPhone (matches Groups' ₹330). Lint 11 problems (baseline 28), build passes.
+
+## design/pill-rows-one-line (27 Nov)
+- Activity on the phone: "Paid via" (Card, UPI, Cash, Other) and the Payment history filters (All … Other) each left "Other" alone on a second line.
+- Under 480px wide, choice pills are slimmer (14px sides), so Paid via fits one line; the history filters are slimmer and sit in one row that scrolls sideways if a larger font needs it, with room kept for the active pill's shadow.
+- Checked on the iPhone (both rows on one line). Lint 11 problems (baseline 28), build passes.

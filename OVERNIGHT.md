@@ -20,5 +20,13 @@ to `main` itself, and pushed. No `.env` here, so nothing reaches the live Supaba
 
 ## Waiting list
 
-- Phone Groups tab lists each friend as a "group" (Aarav, Kabir, Meera), and the real group
-  ("Goa trip", from friend_groups) doesn't appear there. To look at in a later step.
+- (Done 26 Nov, see below.) Phone Groups tab listed friends as groups and hid "Goa trip".
+
+## Run base branch (26 Nov)
+
+- New branch `improve/run-base`, from main, so the run's topic branches have a parent to merge
+  back into (main stays untouched). Merged in: `feature/demo-mock` and `feature/groups-tab`.
+- The Waiting item was already fixed on `feature/groups-tab`: the phone Groups tab now shows
+  "Trip groups" (Goa trip · 4 people · 2 items · ₹10,600) above "Friends". Checked on the
+  iPhone 18 Pro simulator with the demo mock at http://127.0.0.1:5182/.
+- Checks: lint 28 (baseline), build OK, `git diff --check` clean, no conflict markers.

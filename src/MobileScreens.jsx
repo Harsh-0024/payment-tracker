@@ -1,7 +1,8 @@
 /* Phone screens that match the mockup: My Groups, Group detail, Expense Details, Profile. */
 import { useState, useEffect } from "react";
 import { supabase } from "./supabaseClient";
-import { Cover, kindFor, hue, ini, R } from "./DesktopHome";
+import { Cover } from "./DesktopHome";
+import { kindFor, hue, ini, R } from "./people";
 import GroupsPage from "./GroupsPage";
 import { friendlyDate } from "./dates";
 

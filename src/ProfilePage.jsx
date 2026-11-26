@@ -7,30 +7,6 @@ import { openWhatsApp, syncUpi } from "./reminder";
    import PhoneCard from "./PhoneCard";
    import { resizeImage } from "./imageTools";
 
-   function oldResizeImage(file, max, type, quality) {
-  return new Promise((resolve, reject) => {
-    const img = new Image();
-    const url = URL.createObjectURL(file);
-    img.onload = () => {
-      const scale = Math.min(1, max / Math.max(img.width, img.height));
-      const w = Math.round(img.width * scale);
-      const h = Math.round(img.height * scale);
-      const canvas = document.createElement("canvas");
-      canvas.width = w;
-      canvas.height = h;
-      canvas.getContext("2d").drawImage(img, 0, 0, w, h);
-      URL.revokeObjectURL(url);
-      canvas.toBlob(
-        (b) => (b ? resolve(b) : reject(new Error("Could not read this image"))),
-        type,
-        quality
-      );
-    };
-    img.onerror = () => reject(new Error("Could not read this image"));
-    img.src = url;
-  });
-}
-
 export default function ProfilePage({ session, profiles }) {
   const uid = session.user.id;
   const me = profiles.find((p) => p.id === uid);
@@ -129,7 +105,7 @@ export default function ProfilePage({ session, profiles }) {
   async function savePayment(e) {
     e.preventDefault();
     const id = upiId.trim();
-    if (!/^[\w.\-]{2,}@[A-Za-z]{2,}$/.test(id)) {
+    if (!/^[\w.-]{2,}@[A-Za-z]{2,}$/.test(id)) {
       flash("pay", "Enter a valid UPI ID, like name@bank");
       return;
     }

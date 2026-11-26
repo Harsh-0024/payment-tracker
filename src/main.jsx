@@ -3,7 +3,7 @@ import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.jsx'
 import RecoveryGate from './Recovery'
-import './ThemeToggle'
+import './theme'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>

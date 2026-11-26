@@ -88,7 +88,7 @@ export default function FriendScan({ profiles, myId, reload, setError }) {
           raf = requestAnimationFrame(tick);
         };
         tick();
-      } catch (e) {
+      } catch {
         setScanning(false);
         setStatus(
           "Could not open the camera. Allow camera access for this site, or use 'Scan from image'."
@@ -122,7 +122,7 @@ export default function FriendScan({ profiles, myId, reload, setError }) {
         return;
       }
       handleText(result.data);
-    } catch (err) {
+    } catch {
       setStatus("Could not read that image. Try a PNG or JPG screenshot.");
     }
   }

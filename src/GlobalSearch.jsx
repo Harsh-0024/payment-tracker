@@ -112,8 +112,10 @@ export default function GlobalSearch({ entries = [], friends = [] }) {
 
   return (
     <div
+      className="gs-box"
       style={{
-        background: "#fff", borderRadius: 16, padding: 12, marginBottom: 14,
+        // One frame: the card is the field (the input inside has no border of its own).
+        background: "#fff", borderRadius: 16, padding: "4px 12px", marginBottom: 14,
         boxShadow: "0 2px 12px rgba(0,41,112,.08)", color: "#0f172a",
       }}
     >
@@ -128,8 +130,8 @@ export default function GlobalSearch({ entries = [], friends = [] }) {
           placeholder="Search people, amounts, notes…"
           aria-label="Search by friend, amount, note, date, UPI ID or status"
           style={{
-            flex: 1, border: "1px solid #cbd5e1", borderRadius: 999, padding: "10px 14px",
-            fontSize: 14, outline: "none", background: "#fff", color: "#0f172a", minWidth: 0,
+            flex: 1, border: 0, borderRadius: 0, padding: "12px 4px", boxShadow: "none",
+            fontSize: 15, outline: "none", background: "transparent", color: "#0f172a", minWidth: 0,
           }}
         />
         {active && (

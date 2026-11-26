@@ -349,6 +349,14 @@ nav { display: flex; flex-direction: column; gap: 6px; flex: 1; }
 }
 
 .tabs { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
+/* On a phone a row of four or five pills left "Other" alone on a second line. Slimmer pills fit
+   them on one line; the filter row also scrolls sideways if a font makes it wider still. */
+@media (max-width: 480px) {
+  .seg > button { padding-left: 14px; padding-right: 14px; }
+  .tabs { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; padding: 4px 6px 16px; margin: 8px -6px -8px; } /* room for the active pill's shadow */
+  .tabs::-webkit-scrollbar { display: none; }
+  .tabs .tab { flex: none; padding-left: 15px; padding-right: 15px; }
+}
 .tab {
   border: 1px solid var(--line);
   background: rgba(255, 255, 255, 0.9);

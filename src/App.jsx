@@ -174,14 +174,15 @@ function Auth() {
         {mode === "signup" && (
           <>
             <label>Name</label>
-            <input value={name} onChange={(e) => setName(e.target.value)} placeholder="Ravi Sharma" required />
+            <input autoComplete="name" value={name} onChange={(e) => setName(e.target.value)} placeholder="Ravi Sharma" required />
           </>
         )}
         <label>Email</label>
-        <input type="email" value={email} onChange={(e) => setEmail(e.target.value)}
+        <input type="email" autoComplete="email" value={email} onChange={(e) => setEmail(e.target.value)}
           placeholder="you@email.com" required />
         <label>Password</label>
         <input type="password" minLength={6} value={password}
+          autoComplete={mode === "signup" ? "new-password" : "current-password"}
           onChange={(e) => setPassword(e.target.value)} placeholder="At least 6 characters" required />
         {message && <p className="error">{message}</p>}
         <button className="primary" type="submit" disabled={busy}>

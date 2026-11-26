@@ -38,7 +38,7 @@ export default function ForgotPassword({ onBack }) {
         ) : (
           <form onSubmit={submit}>
             <label>Email</label>
-            <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+            <input type="email" autoComplete="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
             {msg && <p className="error">{msg}</p>}
             <button className="primary" type="submit" disabled={busy}>
               {busy ? "Please wait..." : "Send reset link"}

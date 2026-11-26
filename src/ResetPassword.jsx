@@ -42,9 +42,9 @@ export default function ResetPassword({ onDone }) {
         ) : (
           <form onSubmit={submit}>
             <label>New password</label>
-            <input type="password" value={pw} onChange={(e) => setPw(e.target.value)} required />
+            <input type="password" autoComplete="new-password" value={pw} onChange={(e) => setPw(e.target.value)} required />
             <label>Confirm new password</label>
-            <input type="password" value={pw2} onChange={(e) => setPw2(e.target.value)} required />
+            <input type="password" autoComplete="new-password" value={pw2} onChange={(e) => setPw2(e.target.value)} required />
             {msg && <p className="error">{msg}</p>}
             <button className="primary" type="submit" disabled={busy}>
               {busy ? "Please wait..." : "Save new password"}

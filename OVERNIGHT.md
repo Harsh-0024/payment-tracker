@@ -151,6 +151,13 @@ No `.env` here, so the app never reaches the live Supabase project; nothing touc
   list of what it searches is the field's spoken label. GlobalSearch.jsx lint unchanged (the one
   setState-in-effect error at line 34 was already on main); build passes.
 
+- Lint on this branch: 11 problems left (from 28). The 4 errors are one rule, "setState in an
+  effect", on the four "load the data when the page opens" effects (App, GlobalSearch, GroupsPage,
+  PayPage). Each load() is also called again after an add or delete, so it can't move into the
+  effect, and the app can't be run here to check a rewrite (src/devMock.js is not on this Mac).
+  Left as they are on purpose. The 7 warnings are missing effect dependencies; adding them would
+  re-run the loads, so those stay too.
+
 ## Waiting list
 
 - **Seeing the app run**: now possible with `npm run dev:mock` (branch `improve/dev-mock`); the

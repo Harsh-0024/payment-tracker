@@ -1,7 +1,7 @@
 /* Phone home screen (matches the mockup): Total Balance, quick actions, recent activity */
 import { friendlyDate } from "./dates";
 
-import { rupee } from "./people";
+import { rupee, hue, ini } from "./people";
 const money = (n) => rupee(Math.abs(Number(n)));
 
 const QA_ICONS = {
@@ -72,7 +72,8 @@ export default function MobileHome({ entries, go }) {
         const settled = e.status === "Settled";
         return (
           <div className="mh-row" key={e.id}>
-            <span className="mh-row-ic"><Ic name="split" size={22} /></span>
+            {/* The friend's own colour and initial, as on Groups: a list of identical receipts didn't scan. */}
+            <span className="mh-row-ic mh-row-av" style={{ background: hue(e.friend) }} aria-hidden="true">{ini(e.friend)}</span>
             <div className="mh-row-mid">
               <b>{e.note || e.mode || "Payment"}</b>
               <small>

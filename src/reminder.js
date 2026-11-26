@@ -1,4 +1,3 @@
-import QRCode from "qrcode";
 import { supabase } from "./supabaseClient";
 
 const rupee = (n) => "₹" + Number(n).toLocaleString("en-IN");
@@ -126,6 +125,7 @@ export async function shareQR(upiId, upiName) {
       "upi://pay?pa=" + encodeURIComponent(upiId) +
       "&pn=" + encodeURIComponent(upiName) +
       "&cu=INR";
+    const { default: QRCode } = await import("qrcode");
     const dataUrl = await QRCode.toDataURL(link, { width: 600, margin: 2 });
     blob = await (await fetch(dataUrl)).blob();
   }

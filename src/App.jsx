@@ -1,15 +1,11 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, lazy, Suspense } from "react";
 import { QRCodeSVG } from "qrcode.react";
-import { PieChart, Pie, Cell, Tooltip, Legend, ResponsiveContainer } from "recharts";
 import { supabase } from "./supabaseClient";
 import { setTheme, useTheme } from "./ThemeToggle";
 import AuthChoice, { Splash } from "./AuthChoice";
 import PaymentsHub from "./PaymentsHub";
 import SplitHub from "./SplitHub";
-import PayPage from "./PayPage";
-import FriendScan from "./FriendScan";
 import InviteClaim from "./InviteClaim";
-import ProfilePage from "./ProfilePage";
 import "./room.css";
 import "./shell.css";
 import "./mobile.css";
@@ -20,6 +16,13 @@ import { MobileGroups, MobileProfile } from "./MobileScreens";
 import "./mobile-screens.css";
 import "./no-splash.css";
 import "./dk.css";
+
+// Heavy screens load on first use, so the first page doesn't wait for the QR
+// scanner, camera decoder and chart libraries.
+const PayPage = lazy(() => import("./PayPage"));
+const FriendScan = lazy(() => import("./FriendScan"));
+const ProfilePage = lazy(() => import("./ProfilePage"));
+const SpendingChart = lazy(() => import("./SpendingChart"));
 
 const rupee = (n) => "₹" + Number(n).toLocaleString("en-IN");
 const sumAmt = (list) => list.reduce((s, e) => s + Number(e.amount), 0);
@@ -433,7 +436,7 @@ function Shell({ session }) {
           )}
 
           {page === "Settlements" && (
-            <PayPage entries={entries} friends={friends} reload={load} setError={setError} />
+            <Suspense fallback={null}><PayPage entries={entries} friends={friends} reload={load} setError={setError} /></Suspense>
           )}
 
           {page === "Payments" && (
@@ -449,12 +452,12 @@ function Shell({ session }) {
 
           {page === "Analytics" && (
             <>
-              <SpendingChart entries={entries} />
+              <Suspense fallback={null}><SpendingChart entries={entries} /></Suspense>
               <PaidSummary entries={entries} />
             </>
           )}
 
-          {page === "Profile" && <ProfilePage session={session} profiles={profiles} />}
+          {page === "Profile" && <Suspense fallback={null}><ProfilePage session={session} profiles={profiles} /></Suspense>}
     </>
   );
 
@@ -520,7 +523,7 @@ function Shell({ session }) {
               go={setPage}
               dark={dark}
               onTheme={() => setTheme(dark ? "light" : "dark")}
-              settingsPage={<ProfilePage session={session} profiles={profiles} />}
+              settingsPage={<Suspense fallback={null}><ProfilePage session={session} profiles={profiles} /></Suspense>}
             />
           ) : (
             pageBlocks
@@ -760,7 +763,7 @@ function Friends({ friends, connections, profiles, entries, myId, reload, setErr
       )}
 
       <InviteClaim reload={reload} setError={setError} />
-      <FriendScan profiles={profiles} myId={myId} reload={reload} setError={setError} />
+      <Suspense fallback={null}><FriendScan profiles={profiles} myId={myId} reload={reload} setError={setError} /></Suspense>
       <form className="card" onSubmit={sendRequest}>
         <h3>Add a friend by SplitPay ID</h3>
         <label>Their ID</label>
@@ -833,59 +836,6 @@ function Friends({ friends, connections, profiles, entries, myId, reload, setErr
 }
 
 /* ---------- Analytics ---------- */
-// Neighbouring slices in clearly different hues: Card and UPI were two blues side by side.
-const COLORS = ["#4a6cf7", "#f8a53a", "#14b8a6", "#ef6a8a", "#8b5cf6", "#3ccf6e", "#94a3b8"];
-
-function SpendingChart({ entries }) {
-  const [by, setBy] = useState("mode");
-
-  const totals = {};
-  entries.forEach((e) => {
-    const key = by === "mode" ? e.mode : e.friend;
-    totals[key] = (totals[key] || 0) + Number(e.amount);
-  });
-  // Biggest first, so the colours and the legend read in order of size.
-  const data = Object.entries(totals).map(([name, value]) => ({ name, value })).sort((a, b) => b.value - a.value);
-
-  return (
-    <div className="card">
-      <h3>Payment breakdown</h3>
-      <div className="seg" style={{ marginTop: 12 }}>
-        <button type="button" className={by === "mode" ? "on" : ""}
-          onClick={() => setBy("mode")}>By payment mode</button>
-        <button type="button" className={by === "friend" ? "on" : ""}
-          onClick={() => setBy("friend")}>By friend</button>
-      </div>
-
-      {data.length === 0 ? (
-        <p className="sub" style={{ marginTop: 16, display: "block" }}>Add payments to see the chart.</p>
-      ) : (
-        <div style={{ width: "100%", height: 320, marginTop: 8 }}>
-          <ResponsiveContainer>
-            {/* Room above and below the pie, so the outside % labels aren't cut by the buttons or
-                run into the legend on a phone. */}
-            <PieChart margin={{ top: 24, bottom: 12 }}>
-              <Pie
-                data={data}
-                dataKey="value"
-                nameKey="name"
-                outerRadius="70%"
-                label={({ percent }) => `${(percent * 100).toFixed(0)}%`}
-              >
-                {data.map((_, i) => (
-                  <Cell key={i} fill={COLORS[i % COLORS.length]} />
-                ))}
-              </Pie>
-              <Tooltip formatter={(v) => rupee(v)} />
-              {/* The amount beside each name: the slices alone gave no figures on a phone. */}
-              <Legend formatter={(value, entry) => `${value} ${rupee(entry.payload.value)}`} />
-            </PieChart>
-          </ResponsiveContainer>
-        </div>
-      )}
-    </div>
-  );
-}
 
 function PaidSummary({ entries }) {
   const iPaid = {};

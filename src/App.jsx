@@ -486,6 +486,7 @@ function Shell({ session }) {
           ) : page === "Groups" ? (
             <MobileGroups
               friends={friends}
+              myName={myName}
               entries={entries}
               go={setPage}
               reload={load}

@@ -56,13 +56,15 @@ function suggest(bal) {
   return out;
 }
 
-export default function GroupsPage({ friends, setError, myName, goFriends }) {
+// startOpen: a group to show straight away; onClose: where its Back goes (the phone's Groups tab
+// opens one group here and goes back to its own list, not to this page's).
+export default function GroupsPage({ friends, setError, myName, goFriends, startOpen = null, onClose = null }) {
   const [myId, setMyId] = useState(null);
   const [groups, setGroups] = useState([]);
   const [members, setMembers] = useState([]);
   const [expenses, setExpenses] = useState([]);
   const [profileNames, setProfileNames] = useState({});
-  const [openId, setOpenId] = useState(null);
+  const [openId, setOpenId] = useState(startOpen);
 
   async function load() {
     const { data: s } = await supabase.auth.getSession();
@@ -117,7 +119,7 @@ export default function GroupsPage({ friends, setError, myName, goFriends }) {
         myName={myName}
         reload={load}
         setError={setError}
-        onBack={() => setOpenId(null)}
+        onBack={() => (onClose ? onClose() : setOpenId(null))}
       />
     );
   }
@@ -437,7 +439,7 @@ function GroupDetail({
         {plan.map((s, i) => (
           <div className="entry" key={i}>
             <div>
-              <div className="entry-name">{dn(s.from)} pays {dn(s.to)}</div>
+              <div className="entry-name">{s.from === meKey ? `You pay ${dn(s.to)}` : `${dn(s.from)} pays ${s.to === meKey ? "you" : dn(s.to)}`}</div>
               <div className="entry-meta">{rupee(s.amount)}</div>
             </div>
             {isOwner && (

@@ -48,7 +48,8 @@ html[data-theme="dark"] .mh-qa-ic { color: #9db8ff; }
 .mh-row:last-child { border-bottom: 0; }
 .mh-row-ic { width: 46px; height: 46px; flex: 0 0 auto; border-radius: 14px; display: grid; place-items: center; background: var(--tile, #eef3ff); color: #12327f; }
 html[data-theme="dark"] .mh-row-ic { color: #9db8ff; }
-.mh-row-ic.mh-row-av { border-radius: 50%; color: #fff; font-weight: 800; font-size: 18px; }
+.mh-row-ic.mh-row-av,
+html[data-theme="dark"] .mh-row-ic.mh-row-av { border-radius: 50%; color: #fff; font-weight: 800; font-size: 18px; } /* white on the friend's colour in both themes */
 .mh-row-mid { flex: 1; min-width: 0; }
 .mh-row-mid b { display: block; font-size: 16px; font-weight: 700; color: var(--ink, #0f1f4a); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .mh-row small { display: block; margin-top: 2px; font-size: 12.5px; color: var(--mut, #5b6b8f); }

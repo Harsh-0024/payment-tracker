@@ -357,3 +357,18 @@ No `.env` here, so the app never reaches the live Supabase project; nothing touc
 - Trip group avatars draw you with your initial ("D"), like the friend rows, not "Y".
 - Checked on the iPhone: Home ₹1,780.50 / You get ₹1,900.50, Groups Kabir ₹250.50, Goa trip "D".
   Lint 11, build OK, `git diff --check` clean.
+
+## design/heading-font (26 Nov)
+
+- Card titles inside the app ("Add a payment" on Activity, and other h1-h4 in cards) switched to
+  Playfair Display mid-page, from the older global rule in index.css; every page title and the
+  rest of the redesign use the rounded sans. Headings inside `.mb-app` (phone) and `.dk-app`
+  (desktop) now inherit the app's font. The sign-in pages and anything outside the two shells
+  keep the old rule.
+- Checked on the iPhone 18 Pro simulator (demo mock, http://127.0.0.1:5182/, Activity). Lint 11,
+  build OK, `git diff --check` clean.
+
+## Next up
+
+- Activity's search sits in a pill inside a white card, with the magnifier outside the pill: two
+  frames around one field. One frame would be lighter.

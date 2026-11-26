@@ -79,3 +79,8 @@ html[data-theme="dark"] .mh-row-ic { color: #9db8ff; }
   .hub-head .seg button { padding: 11px 16px; font-size: 15px; }
   .hub-head .hub-add { padding: 9px 14px; font-size: 14px; white-space: nowrap; }
 }
+
+/* Headings inside the app use its own rounded sans, like "Activity" and "My Groups" above them.
+   The older global rule (index.css: h1-h3 in Playfair) made card titles such as "Add a payment"
+   switch to a serif mid-page. */
+.mb-app :is(h1, h2, h3, h4), .dk-app :is(h1, h2, h3, h4) { font-family: inherit; letter-spacing: -0.2px; }

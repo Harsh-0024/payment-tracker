@@ -204,7 +204,7 @@ export function MobileGroups({ friends, entries, go, manage, reload, setError, m
         <div className="ms-sheet">
           <div className="ms-gd-av"><Avs names={[f.name, "You"]} s={52} me={me} /></div>
           <h1>{f.name}</h1>
-          <p className="ms-gd-sub">{f.linked_user_id ? "Linked friend" : "Friend"} • {open.length ? "Active" : "Settled"}</p>
+          <p className="ms-gd-sub">{f.linked_user_id ? "Linked friend" : "Friend"} · {open.length ? "Active" : "Settled"}</p>
           <p className={"ms-gd-net " + netCls(net)}>{netText(net)}</p>
 
           <div className="ms-seg">
@@ -219,7 +219,7 @@ export function MobileGroups({ friends, entries, go, manage, reload, setError, m
               {list.map((e) => (
                 <button type="button" className="ms-row" key={e.id} onClick={() => setView({ t: "expense", id: e.id, gid: f.id })}>
                   <span className="ms-row-ic"><Ic n="receipt" s={22} /></span>
-                  <span className="ms-row-mid"><b>{e.note || e.mode || "Payment"}</b><small>{e.paid_by === "me" ? "You paid" : `${f.name} paid`} • {dt(e.payment_date || e.created_at)}</small></span>
+                  <span className="ms-row-mid"><b>{e.note || e.mode || "Payment"}</b><small>{e.paid_by === "me" ? "You paid" : `${f.name} paid`} · {dt(e.payment_date || e.created_at)}</small></span>
                   <span className="ms-row-end"><b className={e.status === "Settled" ? "mut" : e.paid_by === "me" ? "pos" : "neg"}>{R(e.amount)}</b><small>{e.status === "Settled" ? "Settled" : "Pending"}</small></span>
                 </button>
               ))}
@@ -300,7 +300,7 @@ export function MobileGroups({ friends, entries, go, manage, reload, setError, m
           <Avs names={["You", ...names]} max={3} s={34} me={me} />
           <span className="ms-g-mid">
             <b>{g.name}</b>
-            <small>{names.length + 1} people • {count} item{count === 1 ? "" : "s"}{count ? ` • ${R(total)}` : ""}</small>
+            <small>{names.length + 1} people · {count} item{count === 1 ? "" : "s"}{count ? ` · ${R(total)}` : ""}</small>
           </span>
           <Ic n="chev" s={20} />
         </button>
@@ -330,7 +330,7 @@ export function MobileGroups({ friends, entries, go, manage, reload, setError, m
             <Avs names={[f.name, "You"]} s={40} me={me} />
             <span className="ms-g-mid">
               <b>{f.name}</b>
-              <small>{list.length} expense{list.length === 1 ? "" : "s"} • <em className={netCls(net)}>{net > 0 ? `owes you ${R(net)}` : net < 0 ? `you owe ${R(-net)}` : "Settled"}</em></small>
+              <small>{list.length} expense{list.length === 1 ? "" : "s"} · <em className={netCls(net)}>{net > 0 ? `owes you ${R(net)}` : net < 0 ? `you owe ${R(-net)}` : "Settled"}</em></small>
             </span>
             <Ic n="chev" s={20} />
           </button>

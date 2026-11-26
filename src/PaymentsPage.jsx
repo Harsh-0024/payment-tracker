@@ -408,11 +408,13 @@ export default function PaymentsPage({ entries, friends, reload, setError, goFri
             <div>
               <div className="entry-name">{en.friend}</div>
               <div className="entry-meta">
-                {friendlyDate(en.payment_date)} · {en.mode}
-                {en.note ? ` · ${en.note}` : ""}
-                {en.due_date
-                  ? ` · Due ${friendlyDateLower(en.due_date)}`
-                  : ""}
+                {/* Only the parts that exist: an entry with no mode read "Yesterday · · Auto to office". */}
+                {[
+                  friendlyDate(en.payment_date),
+                  en.mode,
+                  en.note,
+                  en.due_date ? `Due ${friendlyDateLower(en.due_date)}` : "",
+                ].filter(Boolean).join(" · ")}
               </div>
             </div>
             <div className="entry-right">

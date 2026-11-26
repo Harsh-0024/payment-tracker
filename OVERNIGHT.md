@@ -399,3 +399,6 @@ No `.env` here, so the app never reaches the live Supabase project; nothing touc
   "Total Balance ₹1,780.50" and "You get ₹1,900.50 · You owe ₹120" (a minus sign when you owe
   more than you get). It still opens Settlements.
 - Checked on the iPhone simulator. Lint 11 (unchanged), build ok, no .env.
+
+## fix/history-dots
+- Payment history rows with no payment mode read "Yesterday · · Auto to office". The meta line now joins only the parts that exist ("Yesterday · Auto to office"). Checked on the iPhone (Activity tab); PayPage's history always has a status, so it can't double up. Lint 11, build passes.

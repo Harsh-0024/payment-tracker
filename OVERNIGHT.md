@@ -448,3 +448,12 @@ No `.env` here, so the app never reaches the live Supabase project; nothing touc
 - Activity on the phone: "Paid via" (Card, UPI, Cash, Other) and the Payment history filters (All … Other) each left "Other" alone on a second line.
 - Under 480px wide, choice pills are slimmer (14px sides), so Paid via fits one line; the history filters are slimmer and sit in one row that scrolls sideways if a larger font needs it, with room kept for the active pill's shadow.
 - Checked on the iPhone (both rows on one line). Lint 11 problems (baseline 28), build passes.
+
+## improve/payment-form-folds (27 Nov)
+
+- Activity → Payments opened on the whole "Add a payment" form, pushing the payment history a full
+  screen down. With a history to read, the form now waits behind one "＋ Add a payment" button, and
+  the history shows at once. The form opens with a Cancel button and folds away again after a
+  payment is added (the "Payment added" card still shows). With no payments yet it starts open.
+- Checked on the iPhone: button, form, Cancel.
+- Checks: diff --check, marker grep, lint 11 problems (baseline 28), build OK.

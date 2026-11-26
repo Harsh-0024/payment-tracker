@@ -410,7 +410,26 @@ function Shell({ session }) {
   }, [page]);
 
   const requests = connections.filter((c) => c.status === "pending" && c.addressee === myId).length;
-  const owes = entries.filter((e) => e.status !== "Settled" && e.paid_by === "friend").slice(0, 3);
+  // "You owe" reminders, one per friend you owe overall: Aarav paying ₹120 while owing you ₹450
+  // isn't a debt of yours, so it no longer asks you to settle it.
+  const owes = (() => {
+    const byFriend = new Map();
+    for (const e of entries) {
+      if (e.status === "Settled" || !e.friend) continue;
+      const f = byFriend.get(e.friend) || { net: 0, theirs: [] };
+      const amt = Number(e.amount) || 0;
+      if (e.paid_by === "friend") { f.net -= amt; f.theirs.push(e); } else f.net += amt;
+      byFriend.set(e.friend, f);
+    }
+    return [...byFriend].filter(([, f]) => f.net < -0.004).sort((a, b) => a[1].net - b[1].net).slice(0, 3)
+      .map(([friend, f]) => ({
+        id: "owe-" + friend,
+        friend,
+        amount: Math.round(-f.net * 100) / 100,
+        // One payment of theirs and nothing the other way: name it; otherwise say it's the balance.
+        note: f.theirs.length === 1 && -f.net === Number(f.theirs[0].amount) ? f.theirs[0].note : "Overall balance",
+      }));
+  })();
   const meta = [null, ...(TITLES[page] || TITLES.Dashboard)];
   const home = page === "Dashboard";
 

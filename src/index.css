@@ -552,3 +552,14 @@ input[type="date"] { display: block; width: 100%; min-width: 0; max-width: 100%;
    left like the text in the other fields. */
 input[type="date"]::-webkit-date-and-time-value { text-align: left; line-height: 52px; }
 .row2 > * { min-width: 0; }
+
+/* iOS Safari zooms the whole page into any text field under 16px when it's tapped
+   (the search box was 15px: the page jumped sideways and stayed zoomed). Touch screens
+   only, so desktop keeps its sizes; !important because many fields size themselves inline. */
+@media (pointer: coarse) {
+  input:not([type="checkbox"]):not([type="radio"]):not([type="range"]),
+  select,
+  textarea {
+    font-size: max(16px, 1em) !important;
+  }
+}

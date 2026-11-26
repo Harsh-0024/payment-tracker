@@ -405,3 +405,8 @@ No `.env` here, so the app never reaches the live Supabase project; nothing touc
 
 ## design/group-avatars-more
 - Groups tab: a trip group of 4 showed three faces next to "4 people". The stack now ends in a "+N" bubble when more people than fit (Goa trip: D, A, +2), with light and dark colours. Checked on the iPhone; lint 11, build passes.
+
+## fix/ios-input-zoom
+- Tapping the Activity search box on the iPhone zoomed the whole page in (its text was 15px; iOS Safari zooms into any field under 16px), cutting off the title and leaving the page zoomed.
+- src/index.css: on touch screens (pointer: coarse) every text field, select and textarea is at least 16px (!important, since many fields size themselves inline). Desktop sizes are unchanged.
+- Checked on the iPhone: focusing and typing in search keeps the page at normal size. Lint 11 problems (unchanged), build OK.

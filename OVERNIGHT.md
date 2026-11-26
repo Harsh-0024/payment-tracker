@@ -402,3 +402,6 @@ No `.env` here, so the app never reaches the live Supabase project; nothing touc
 
 ## fix/history-dots
 - Payment history rows with no payment mode read "Yesterday · · Auto to office". The meta line now joins only the parts that exist ("Yesterday · Auto to office"). Checked on the iPhone (Activity tab); PayPage's history always has a status, so it can't double up. Lint 11, build passes.
+
+## design/group-avatars-more
+- Groups tab: a trip group of 4 showed three faces next to "4 people". The stack now ends in a "+N" bubble when more people than fit (Goa trip: D, A, +2), with light and dark colours. Checked on the iPhone; lint 11, build passes.

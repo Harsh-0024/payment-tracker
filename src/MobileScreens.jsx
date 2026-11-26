@@ -32,14 +32,23 @@ function Ic({ n, s = 22 }) {
   );
 }
 /* "You" is drawn with your own initial (as on Home and Profile), not a "Y". */
-function Avs({ names, s = 40, me }) {
+// With max, a stack of more people than fit ends in a "+N" bubble, so "4 people" never shows three faces.
+function Avs({ names, s = 40, me, max = Infinity }) {
+  const extra = names.length > max ? names.length - (max - 1) : 0;
+  const shown = extra ? names.slice(0, max - 1) : names;
+  const size = { width: s, height: s, fontSize: s * 0.4 };
   return (
     <span className="ms-avs">
-      {names.map((n, i) => (
-        <i key={i} style={{ width: s, height: s, fontSize: s * 0.4, marginLeft: i ? -s * 0.28 : 0, background: n === "You" ? "#12327f" : hue(n) }}>
+      {shown.map((n, i) => (
+        <i key={i} style={{ ...size, marginLeft: i ? -s * 0.28 : 0, background: n === "You" ? "#12327f" : hue(n) }}>
           {ini(n === "You" && me ? me : n)}
         </i>
       ))}
+      {extra ? (
+        <i className="ms-av-more" style={{ ...size, fontSize: s * 0.34, marginLeft: -s * 0.28 }} aria-label={`and ${extra} more`}>
+          +{extra}
+        </i>
+      ) : null}
     </span>
   );
 }
@@ -285,7 +294,7 @@ export function MobileGroups({ friends, entries, go, manage, reload, setError, m
       {trips.groups.length > 0 && tripRows.length === 0 && <p className="ms-sec-note">No trip groups match.</p>}
       {tripRows.map(({ g, names, count, total }) => (
         <button type="button" className="ms-g" key={g.id} onClick={() => setView({ t: "trip", id: g.id })}>
-          <Avs names={["You", ...names].slice(0, 3)} s={34} me={me} />
+          <Avs names={["You", ...names]} max={3} s={34} me={me} />
           <span className="ms-g-mid">
             <b>{g.name}</b>
             <small>{names.length + 1} people • {count} item{count === 1 ? "" : "s"}{count ? ` • ${R(total)}` : ""}</small>

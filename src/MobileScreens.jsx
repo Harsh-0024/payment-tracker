@@ -299,7 +299,13 @@ export function MobileGroups({ friends, entries, go, manage, reload, setError, m
           <button type="button" className="ms-cta" onClick={() => setView({ t: "manage" })}>Add friends</button>
         </div>
       )}
-      {friends.length > 0 && shown.length === 0 && <p className="ms-empty">Nothing found.</p>}
+      {friends.length > 0 && shown.length === 0 && (
+        <p className="ms-empty">
+          {q.trim() ? `No group called “${q.trim()}”${pill === "All" ? "" : ` in ${pill}`}.`
+            : pill === "Active" ? "Nothing open: every group is settled up."
+              : "No archived groups. A group moves here once everything in it is settled."}
+        </p>
+      )}
 
       {shown.map((f) => {
         const { list, net } = info(f);

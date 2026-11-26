@@ -410,3 +410,7 @@ No `.env` here, so the app never reaches the live Supabase project; nothing touc
 - Tapping the Activity search box on the iPhone zoomed the whole page in (its text was 15px; iOS Safari zooms into any field under 16px), cutting off the title and leaving the page zoomed.
 - src/index.css: on touch screens (pointer: coarse) every text field, select and textarea is at least 16px (!important, since many fields size themselves inline). Desktop sizes are unchanged.
 - Checked on the iPhone: focusing and typing in search keeps the page at normal size. Lint 11 problems (unchanged), build OK.
+
+## design/search-avatars
+- Search results listed friends with a grey 👤 emoji, while Home, Groups and the trip lists show each friend as a coloured initial. GlobalSearch now uses the same hue()/ini() avatar (34px circle), with the name and UPI ID beside it.
+- Lint 11 problems (unchanged), build OK. Checked on the iPhone (Activity → search "a": Aarav, Kabir, Meera in purple, pink, blue).

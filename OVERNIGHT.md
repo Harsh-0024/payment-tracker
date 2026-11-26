@@ -370,5 +370,13 @@ No `.env` here, so the app never reaches the live Supabase project; nothing touc
 
 ## Next up
 
-- Activity's search sits in a pill inside a white card, with the magnifier outside the pill: two
-  frames around one field. One frame would be lighter.
+- (Done on design/search-box.) Activity's search had two frames around one field.
+
+## design/search-box (26 Nov)
+
+- Activity's search was a bordered pill inside a white card, with the magnifier outside the pill.
+  Now the card is the field's one frame: the input has no border or fill of its own (overriding
+  `.sp-content input`, which forces both with !important) and a slightly larger 15px text.
+  Results still open inside the same card.
+- Checked on the iPhone 18 Pro simulator (field look) and in the browser (typed "Aarav": friend,
+  entries and filter chips show in the card). Lint 11, build OK, `git diff --check` clean.

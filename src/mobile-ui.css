@@ -84,3 +84,7 @@ html[data-theme="dark"] .mh-row-ic { color: #9db8ff; }
    The older global rule (index.css: h1-h3 in Playfair) made card titles such as "Add a payment"
    switch to a serif mid-page. */
 .mb-app :is(h1, h2, h3, h4), .dk-app :is(h1, h2, h3, h4) { font-family: inherit; letter-spacing: -0.2px; }
+
+/* Activity's search: the card is the field's only frame, so its input has no box of its own
+   (.sp-content gives every input a border and fill with !important). */
+.sp-content .gs-box input { border: 0 !important; background: transparent !important; }

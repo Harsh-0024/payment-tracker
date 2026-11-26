@@ -39,6 +39,7 @@ to `main` itself, and pushed. No `.env` here, so nothing reaches the live Supaba
 - Delete account (src/DeleteAccount.jsx) removes the profile photo and QR image before it calls `delete_my_account`. If that call fails, the account stays but its photo and QR are already gone. Moving the removal after the call is only safe if storage still accepts the signed-out user's token or the SQL function cleans storage itself; that function's SQL is not in the repo, so this waits for a look at the database side.
 # Overnight notes: payment-tracker (`fix/friend-delete-confirm`)
 # Overnight notes: payment-tracker (`fix/pay-warnings`)
+# Overnight notes: payment-tracker (`fix/settle-toggle-error`)
 
 Part of the improvement run (with Liftbook and Muhurta). This branch is from `main` and never
 committed to `main` itself. No `.env` here, so nothing touches live data.
@@ -67,6 +68,13 @@ committed to `main` itself. No `.env` here, so nothing touches live data.
 - After a payment, linking its new entry back to it (`entry_ids`) also ignored failure; without the link, the payment's entry isn't treated as waiting for confirmation. It now joins the other warnings shown after saving. Lint 28, build OK.
 
 - PayPage's last unchecked writes now report failures: re-saving an open payment's amount stops with the error instead of opening the UPI app on stale data; a failed UPI-ID save to a friend shows a gentle note; Cancel stays open with the error instead of closing as if it worked. Lint 28 (same as main), build OK.
+### Branch `fix/settle-toggle-error` (26 Nov)
+
+- **Marking a payment Settled (or back to Pending) shows the error if it doesn't save.** The
+  desktop Payments list dropped the error and reloaded, so the row just stayed as it was, with no
+  word why. It now shows the message, as the delete beside it already did. This is the only
+  Settled/Pending switch in the app. `npm run build` passes; `npm run lint` gives the same 28
+  problems as `main`, none new. Not run against a database: no `.env`, by design.
 
 ## Waiting list
 

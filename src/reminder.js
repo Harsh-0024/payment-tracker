@@ -86,9 +86,16 @@ export function buildMessage({ friend, entries, entry, myName }) {
   ];
 
   if (theyPaid > 0) {
+    // When what they paid for me covers what they owe, "Net amount to pay: ₹0" asked them to pay
+    // nothing in a message asking them to pay; say who owes whom instead.
+    const settle = Math.round(net * 100) / 100;
     lines.push(
       `🔁 You paid for me: ${rupee(theyPaid)}`,
-      `👉 Net amount to pay: ${rupee(Math.max(net, 0))}`
+      settle > 0
+        ? `👉 Net amount to pay: ${rupee(settle)}`
+        : settle === 0
+          ? "👉 That evens out: nothing to pay."
+          : `👉 After that, I owe you ${rupee(-settle)}.`
     );
   }
   if (entry) {

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { supabase } from "./supabaseClient";
+import { friendlyDate, friendlyDateLower } from "./dates";
 import { getUpi, buildMessage, openWhatsApp, shareQR } from "./reminder";
 
 // After you deploy the app, put its web address here (for example "https://yourapp.vercel.app")
@@ -404,10 +405,10 @@ export default function PaymentsPage({ entries, friends, reload, setError, goFri
             <div>
               <div className="entry-name">{en.friend}</div>
               <div className="entry-meta">
-                {new Date(en.payment_date).toLocaleDateString("en-IN")} · {en.mode}
+                {friendlyDate(en.payment_date)} · {en.mode}
                 {en.note ? ` · ${en.note}` : ""}
                 {en.due_date
-                  ? ` · Due ${new Date(en.due_date + "T00:00:00").toLocaleDateString("en-IN")}`
+                  ? ` · Due ${friendlyDateLower(en.due_date)}`
                   : ""}
               </div>
             </div>

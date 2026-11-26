@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { QRCodeSVG } from "qrcode.react";
 import { Html5Qrcode } from "html5-qrcode";
 import { supabase } from "./supabaseClient";
+import { friendlyDate } from "./dates";
 
 const rupee = (n) => "₹" + Number(n).toLocaleString("en-IN");
 const UPI_RE = /^[\w.\-]{2,}@[A-Za-z]{2,}$/;
@@ -724,7 +725,7 @@ export default function PayPage({ entries, friends, reload, setError }) {
                 <div>
                   <div className="entry-name">{rupee(e.amount)}</div>
                   <div className="entry-meta">
-                    {new Date(e.payment_date).toLocaleDateString("en-IN")}
+                    {friendlyDate(e.payment_date)}
                     {e.note ? ` · ${e.note}` : ""}
                   </div>
                 </div>

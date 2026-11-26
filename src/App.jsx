@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef, lazy, Suspense } from "react";
 import { QRCodeSVG } from "qrcode.react";
 import { supabase } from "./supabaseClient";
+import { friendlyDate, friendlyDateLower } from "./dates";
 import { setTheme, useTheme } from "./ThemeToggle";
 import AuthChoice, { Splash } from "./AuthChoice";
 import PaymentsHub from "./PaymentsHub";
@@ -721,12 +722,12 @@ function Friends({ friends, connections, profiles, entries, myId, reload, setErr
           <div className={"entry" + (en.status === "Settled" ? " settled" : "")} key={en.id}>
             <div>
               <div className="entry-name">
-                {new Date(en.payment_date).toLocaleDateString("en-IN")} · {en.mode}
+                {friendlyDate(en.payment_date)} · {en.mode}
               </div>
               <div className="entry-meta">
                 {en.note || "No description"}
                 {en.due_date
-                  ? ` · Due ${new Date(en.due_date + "T00:00:00").toLocaleDateString("en-IN")}`
+                  ? ` · Due ${friendlyDateLower(en.due_date)}`
                   : ""}
                 {en.shared ? ` · Added by ${en.friend}` : ""}
               </div>

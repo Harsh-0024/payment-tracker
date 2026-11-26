@@ -457,3 +457,12 @@ No `.env` here, so the app never reaches the live Supabase project; nothing touc
   payment is added (the "Payment added" card still shows). With no payments yet it starts open.
 - Checked on the iPhone: button, form, Cancel.
 - Checks: diff --check, marker grep, lint 11 problems (baseline 28), build OK.
+
+## improve/remove-friend-warns (27 Nov)
+
+- A friend's page → ••• → Remove friend asked only "Remove Aarav?", even with ₹330 still open
+  between you. It now says so first: "Aarav still owes you ₹330. Remove Aarav anyway?" (or "You
+  still owe … ₹N"); with nothing open it asks just "Remove Aarav?" as before.
+- Checked on the iPhone: the prompt showed the balance; Cancel left Aarav in place.
+- Not changed: the desktop Friends list's remove (App.jsx) still asks the short question.
+- Checks: diff --check, marker grep, lint 11 problems (baseline 28), build OK.

@@ -25,7 +25,7 @@ const FriendScan = lazy(() => import("./FriendScan"));
 const ProfilePage = lazy(() => import("./ProfilePage"));
 const SpendingChart = lazy(() => import("./SpendingChart"));
 
-const rupee = (n) => "₹" + Number(n).toLocaleString("en-IN");
+import { rupee } from "./people";
 const sumAmt = (list) => list.reduce((s, e) => s + Number(e.amount), 0);
 const nameOfUser = (session) => {
   const m = session.user.user_metadata || {};

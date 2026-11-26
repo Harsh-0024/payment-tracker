@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 
-const rupee = (n) => "₹" + Number(n).toLocaleString("en-IN");
+import { rupee } from "./people";
 const has = (q, words) => words.some((w) => q.includes(w));
 const fmt = (d) => (d ? new Date(d).toLocaleDateString("en-IN") : "");
 

@@ -1,6 +1,6 @@
 import { supabase } from "./supabaseClient";
 
-const rupee = (n) => "₹" + Number(n).toLocaleString("en-IN");
+import { rupee } from "./people";
 const sum = (list) => list.reduce((s, e) => s + Number(e.amount), 0);
 const fmtDate = (s) =>
   new Date(s + "T00:00:00").toLocaleDateString("en-IN", {

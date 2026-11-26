@@ -2,7 +2,7 @@ import { useState, useMemo } from "react";
 import "./dashboard.css";
 import { friendlyDate } from "./dates";
 
-const rupee = (n) => "₹" + Number(n).toLocaleString("en-IN");
+import { rupee } from "./people";
 const COLORS = ["#4a6cf7", "#1aa0f6", "#f8a53a", "#3ccf6e", "#ef6a8a", "#14b8a6"];
 const colorOf = (s) => COLORS[[...String(s || "?")].reduce((a, c) => a + c.charCodeAt(0), 0) % COLORS.length];
 

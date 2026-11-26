@@ -693,6 +693,11 @@ export default function PayPage({ entries, friends, reload, setError }) {
       {Object.entries(owed).map(([friend, list]) => {
         const payable = list.filter((e) => !waiting.has(e.id));
         const total = payable.reduce((s, e) => s + Number(e.amount), 0);
+        // What this friend owes you, so paying them here doesn't hide that they're the one behind.
+        const theyOwe = entries
+          .filter((e) => e.friend === friend && e.paid_by === "me" && e.status !== "Settled")
+          .reduce((s, e) => s + Number(e.amount), 0);
+        const youOwe = list.reduce((s, e) => s + Number(e.amount), 0);
         return (
           <div className="card" key={friend}>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 12, flexWrap: "wrap" }}>
@@ -704,6 +709,13 @@ export default function PayPage({ entries, friends, reload, setError }) {
                 </button>
               )}
             </div>
+            {theyOwe > 0 && (
+              <p className="sub" style={{ margin: "4px 0 6px" }}>
+                {friend} also owes you {rupee(theyOwe)}, so overall{" "}
+                {theyOwe > youOwe ? `they owe you ${rupee(theyOwe - youOwe)}`
+                  : theyOwe < youOwe ? `you owe ${rupee(youOwe - theyOwe)}` : "you're even"}.
+              </p>
+            )}
             {list.map((e) => (
               <div className="entry" key={e.id}>
                 <div>

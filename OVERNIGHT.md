@@ -495,3 +495,10 @@ No `.env` here, so the app never reaches the live Supabase project; nothing touc
   the final payment's amount and Delete sat under it with no way to scroll them clear.
 - The phone page's bottom padding goes from 112px to 176px (src/mobile-ui.css .mb-app), so the last row ends
   above the bubble. Checked on the iPhone at 192.168.29.209:5182, Activity scrolled to the end.
+
+## improve/friends-add-link
+- On the phone's My Groups, the header's round + adds friends, but unlabelled and just above "+ New group" it read
+  as a second new-group button, and the Friends section had no add action of its own.
+- Friends now has a "+ Add friend" link beside its heading, like Trip groups' "+ New group" (src/MobileScreens.jsx).
+  It opens the same Add friends screen; the header + stays as in the mockup.
+- Checked on the iPhone at 192.168.29.209:5182: the link lines up with "+ New group" and opens Add friends.

@@ -311,6 +311,8 @@ export function MobileGroups({ friends, entries, go, manage, reload, setError, m
 
       <div className="ms-sec">
         <h2>Friends</h2>
+        {/* The header's round + adds friends too, but unlabelled beside "+ New group" it read as a second new-group button. */}
+        <button type="button" className="ms-link" onClick={() => setView({ t: "manage" })}>+ Add friend</button>
       </div>
       {friends.length === 0 && (
         <div className="ms-empty-card">

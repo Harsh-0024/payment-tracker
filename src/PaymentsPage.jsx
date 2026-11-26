@@ -227,10 +227,13 @@ export default function PaymentsPage({ entries, friends, reload, setError, goFri
   }
 
   async function toggle(en) {
-    await supabase
+    // Say so when it didn't save: the row had just stayed as it was, with no word why.
+    const { error } = await supabase
       .from("entries")
       .update({ status: en.status === "Settled" ? "Pending" : "Settled" })
       .eq("id", en.id);
+    if (error) { setError(error.message); return; }
+    setError("");
     reload();
   }
 

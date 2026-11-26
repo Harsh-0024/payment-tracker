@@ -433,3 +433,8 @@ No `.env` here, so the app never reaches the live Supabase project; nothing touc
 - Settlements → You owe: a friend with one unpaid expense showed "Pay all ₹120" beside the row's own "Pay" for the same ₹120.
 - "Pay all" now shows only when there are two or more payments to that friend.
 - Checked on the iPhone (Aarav, one ₹120 row). Lint 11 problems (baseline 28), build passes.
+
+## design/card-last-row-line (27 Nov)
+- Settlements (and any card of rows): rows draw a bottom divider with rounded corners, so the last row left a curved line hanging just above the card's own edge.
+- The last row in a card no longer draws a divider; the rows between still do.
+- Checked on the iPhone (Aarav's card on Settlements). Lint 11 problems (baseline 28), build passes.

@@ -382,6 +382,8 @@ nav { display: flex; flex-direction: column; gap: 6px; flex: 1; }
   transition: background 0.25s, transform 0.25s var(--ease);
 }
 .entry:hover { background: rgba(31, 107, 71, 0.06); }
+/* Rows divide each other; the last one in a card ends on the card's own edge, not a curved line. */
+.card > .entry:last-child { border-bottom: 0; }
 .entry.settled { opacity: 0.55; }
 .row-click { cursor: pointer; }
 .row-click:hover { transform: translateX(4px); }

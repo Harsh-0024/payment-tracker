@@ -106,6 +106,8 @@ export default function PaymentsPage({ entries, friends, reload, setError, goFri
   const [filter, setFilter] = useState("All");
   const [lastAdded, setLastAdded] = useState(null);
   const [editingId, setEditingId] = useState(null);
+  // With a history to read, the form waits behind one button; with none yet, it's the first thing.
+  const [formOpen, setFormOpen] = useState(entries.length === 0);
 
   function onFriendChange(v) {
     if (v === "__new__") {
@@ -172,6 +174,7 @@ export default function PaymentsPage({ entries, friends, reload, setError, goFri
     setFriend(friendName);
     await reload();
     setLastAdded({ id: data.id });
+    setFormOpen(false);
   }
 
   async function saveEdit(en, d) {
@@ -296,6 +299,11 @@ export default function PaymentsPage({ entries, friends, reload, setError, goFri
         </div>
       )}
 
+      {!formOpen ? (
+        <button type="button" className="primary" style={{ margin: "4px 0 8px" }} onClick={() => setFormOpen(true)}>
+          ＋ Add a payment
+        </button>
+      ) : (
       <form className="card" onSubmit={add}>
         <h3>Add a payment</h3>
 
@@ -372,7 +380,13 @@ export default function PaymentsPage({ entries, friends, reload, setError, goFri
         </div>
 
         <button className="primary" type="submit">Add Payment</button>
+        {entries.length > 0 && (
+          <button className="ghost" type="button" style={{ marginTop: 8, width: "100%" }} onClick={() => setFormOpen(false)}>
+            Cancel
+          </button>
+        )}
       </form>
+      )}
 
       <h2>Payment history</h2>
       <div className="tabs">
